@@ -8,15 +8,6 @@ const allSampleUsers = usersSampleDataset.usersSampleDataset;
 const allSampleTrips = tripsSampleDataset.tripsSampleDataset; 
 const allSampleDestinations = destinationsSampleDataset.destinationsSampleDataset; 
 
-describe('See if the tests are running', function() {
-  it('should return true', function() {
-    expect(true).to.equal(true);
-    console.log("users:", allSampleUsers)
-    console.log("trips:", allSampleTrips)
-    console.log("destinations:", allSampleDestinations)
-  });
-});
-
 describe('Return User Data', function(){
   it('should return user data based on their id', function() {
     const username = "traveler1"
