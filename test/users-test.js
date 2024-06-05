@@ -10,5 +10,8 @@ const allSampleDestinations = destinationsSampleDataset.destinationsSampleDatase
 describe('See if the tests are running', function() {
   it('should return true', function() {
     expect(true).to.equal(true);
+    console.log("users:", allSampleUsers)
+    console.log("trips:", allSampleTrips)
+    console.log("destinations:", allSampleDestinations)
   });
 });
