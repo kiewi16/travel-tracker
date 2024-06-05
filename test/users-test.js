@@ -9,7 +9,7 @@ const allSampleTrips = tripsSampleDataset.tripsSampleDataset;
 const allSampleDestinations = destinationsSampleDataset.destinationsSampleDataset; 
 
 describe('Return User Data', function(){
-  it('should return user data based on their id', function() {
+  it('should return user data based on their username', function() {
     const username = "traveler1"
     const user1 = getUserData(allSampleUsers, username)
 
@@ -20,7 +20,7 @@ describe('Return User Data', function(){
     });
   });
 
-  it.only('should return a different user/s data based on their id', function() {
+  it.only('should return a different user/s data based on their username', function() {
     const username = "traveler10"
     const user10 = getUserData(allSampleUsers, username)
 
