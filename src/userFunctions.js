@@ -28,8 +28,35 @@ function getDestinationsVisitedByUser(trips, destinations, userId) {
     })
     return userDestinationsByName
 }
+
+function calculateTotalSpentThisYear (trips, destinations, userId) {
+    const tripsTakenByUser = trips.filter(trip => {
+        return trip.userID === userId && trip.status === "approved"
+    })
+    const userTripsInfo = tripsTakenByUser.map(trip => {
+        return {
+            destinationID: trip.destinationID,
+            duration: trip.duration,
+            numOfTravelers: trip.travelers,
+            date: trip.date
+        }       
+    })
+    const totalSpentByCategory = userTripsInfo.reduce((accumulator, tripInfo) => {
+        destinations.forEach(destination => {
+            if(destination.id === tripInfo.destinationID) {
+                accumulator.lodgingCosts += destination.estimatedLodgingCostPerDay * tripInfo.duration
+                accumulator.flightCosts += destination.estimatedFlightCostPerPerson * tripInfo.numOfTravelers
+            }
+        })
+    return accumulator
+    }, {lodgingCosts: 0, flightCosts: 0})  
+    const totalSpent = (totalSpentByCategory.lodgingCosts + totalSpentByCategory.flightCosts) 
+    const totalSpentWithAgentFee = (totalSpent * .10) + totalSpent
+    return totalSpentWithAgentFee
+}
 export {
     getUserData,
     getTripsTakenByUser,
     getDestinationsVisitedByUser,
+    calculateTotalSpentThisYear, 
 }
