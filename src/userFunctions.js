@@ -41,9 +41,12 @@ function calculateTotalSpentThisYear (trips, destinations, userId) {
             date: trip.date
         }       
     })
-    const totalSpentByCategory = userTripsInfo.reduce((accumulator, tripInfo) => {
+    const tripsInCurrentYear = userTripsInfo.filter(userTrip => {
+        return userTrip.date.includes('2022')
+    })
+    const totalSpentByCategory = tripsInCurrentYear.reduce((accumulator, tripInfo) => {
         destinations.forEach(destination => {
-            if(destination.id === tripInfo.destinationID) {
+            if (destination.id === tripInfo.destinationID) {
                 accumulator.lodgingCosts += destination.estimatedLodgingCostPerDay * tripInfo.duration
                 accumulator.flightCosts += destination.estimatedFlightCostPerPerson * tripInfo.numOfTravelers
             }
