@@ -6,28 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Travel Tracker</title>
 </head>
-<header>
-  <h1 class="welcome-message">
-    To Travel Is To Live!
-  </h1>
-</header>
 <body>
   <main>
-    <section class="main-wrapper">
+    <div class="login-form-wrapper">
+    <h1 class="login-message">To Travel is to Live!</h1>
+    <form id="login-form">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="username" required>
+      <p id="username-error-message" class="username-error-message" hidden>Please enter a valid username.</p>
+      <label for="password">Password</label>
+      <input type="text" id="password" placeholder="password" required>
+      <p id="password-error-message" class="password-error-message" hidden>Please enter a valid password.</p>
+      <button type="submit" id="login-button">Login</button>
+    </form>
+   </div>
+    <section class="main-wrapper" hidden>
+      <header>
+        <h1 class="welcome-message">Welcome, User!</h1>
+      </header>
       <section class="upcoming-trips-wrapper">
         <h3 class="upcoming-trips-header">Upcoming Trips</h3>
+        <p class="no-upcoming-trips">No Upcoming Trips</p>
         <div class="upcoming-trips">   
         </div>
       </section>
       <section class="pending-trips-wrapper">
         <h3 class="pending-trips-header">Pending Trips</h3>
+          <p class="no-pending-trips">No Pending Trips</p>
         <div class="pending-trips">   
         </div>
       </section>
       <section class="past-trips-wrapper">
         <h3 class="past-trips-header">Past Trips</h3>
-        <div class="past-trips">  
+        <div class="past-trips">
+          <div id="destinations-visited-container">  
+          </div>  
         </div>
+        <p class="total-amount-spent">Total Amount Spent on Trips This Year:</p> 
       </section>
       <section class="book-a-trip-wrapper">
         <h3 class="book-a-trip-header">Book A Trip!</h3>
@@ -37,7 +52,7 @@
     </section>
   </main> 
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
-
+  <script src="bundle.js">
+  </script>
 </body>
 </html>

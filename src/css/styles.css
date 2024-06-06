@@ -11,8 +11,10 @@ body, html {
 .main-wrapper {
     width: 100%
 }
-
-div {
+.upcoming-trips-wrapper,
+.pending-trips-wrapper,
+.past-trips-wrapper,
+.book-a-trip-wrapper {
     border: 5px hotpink solid;
     height: 150px;
     width: auto; 
@@ -25,3 +27,6 @@ div {
     text-align: center;
 }
 
+.hidden {
+    display: none;
+}
