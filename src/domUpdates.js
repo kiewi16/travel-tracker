@@ -1,4 +1,4 @@
-import { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser } from '../src/userFunctions.js'
+import { getUserData, getDestinationsVisitedByUser } from '../src/userFunctions.js'
 import usersSampleDataset from './data/users-sample-test-data.js'
 import tripsSampleDataset from './data/trips-sample-test-data.js'
 import destinationsSampleDataset from './data/destinations-sample-test-data.js'
@@ -34,14 +34,14 @@ function preFetchUserData(users, username) {
     const userId = user.id
     updateWelcomeMessage(user)
     const destinationsVisitedByUser = getDestinationsVisitedByUser(trips, destinations, userId)
-    updatePastTrips(destinationsVisitedByUser )
+    updateTripsTaken(destinationsVisitedByUser )
 }
 
 function updateWelcomeMessage(user) {
     welcomeMessage.innerText = `Let's Go On An Adventure, ${user.name}!`
 }
 
-function updatePastTrips(destinationsVisitedByUser) {
+function updateTripsTaken(destinationsVisitedByUser) {
     console.log(destinationsVisitedByUser)
     const container = document.querySelector('#destinations-visited-container')
     destinationsVisitedByUser.forEach(destinationVisited => {
