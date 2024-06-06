@@ -3,7 +3,7 @@ const expect = chai.expect;
 import usersSampleDataset from '../src/data/users-sample-test-data.js';
 import tripsSampleDataset from '../src/data/trips-sample-test-data.js';
 import destinationsSampleDataset from '../src/data/destinations-sample-test-data.js'; 
-const { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser } = require('../src/userFunctions.js')
+const { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, calculateTotalSpentThisYear } = require('../src/userFunctions.js')
 const allSampleUsers = usersSampleDataset.usersSampleDataset;
 const allSampleTrips = tripsSampleDataset.tripsSampleDataset; 
 const allSampleDestinations = destinationsSampleDataset.destinationsSampleDataset; 
@@ -63,4 +63,11 @@ describe('Return User Trips', function(){
 
     expect(user1Destinations).to.deep.equal(["Madrid, Spain", "Castries, St Lucia"]);
   });
-}); 
+});
+
+describe('Calculate Total Money Spent on Trips This Year', function () {
+  it('should calcuate the total spent on trips this year', function () {
+    const userId = 1
+    const user1TotalSpentThisYear = calculateTotalSpentThisYear(allSampleTrips, allSampleDestinations, userId)
+  })
+})
