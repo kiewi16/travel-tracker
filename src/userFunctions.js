@@ -21,7 +21,7 @@ function getTripsTakenByUser(trips, userId) {
             travelers: userTrip.travelers,
         }
     })
-        // console.log("new user object:", userTripsConvertedDate)
+    // console.log("new user object:", userTripsConvertedDate)
     const tripsTakenByUser = userTripsConvertedDate.filter(userTripConvertedDate => {
         return userTripConvertedDate.date < currentDate
         })
@@ -63,20 +63,23 @@ function getUpcomingTripsForUser(trips, userId) {
         return upcomingTripsForUser
     }
 function getDestinationsUserWillVisit(upcomingTripsForUser, destinations) {
+    
     const destinationIDs = upcomingTripsForUser.map(trip => {
-        return trip.destinationID
-        })
+        return trip.destinationID      
+   })
     const userDestinations = destinations.filter(destination => {
         return destinationIDs.includes(destination.id)
         })
     const userUpComingDestinationsByName = userDestinations.map(destination => {
         return destination.destination
         })
-        // console.log(userDestinationsByName)
+        console.log(userUpComingDestinationsByName)
         return userUpComingDestinationsByName
     }
 
 function calculateTotalSpentThisYear(trips, destinations, userId) {
+    const startofYear = new Date ("2022/01/01") 
+    const endofYear = new Date ("2022/12/31")
     const tripsTakenByUser = trips.filter(trip => {
         return trip.userID === userId && trip.status === "approved"
     })
@@ -85,11 +88,11 @@ function calculateTotalSpentThisYear(trips, destinations, userId) {
             destinationID: trip.destinationID,
             duration: trip.duration,
             numOfTravelers: trip.travelers,
-            date: trip.date
+            date: new Date (trip.date)
         }       
     })
     const tripsInCurrentYear = userTripsInfo.filter(userTrip => {
-        return userTrip.date.includes('2022')
+        return userTrip.date >= startofYear && userTrip.date <= endofYear
     })
     const totalSpentByCategory = tripsInCurrentYear.reduce((accumulator, tripInfo) => {
         destinations.forEach(destination => {
@@ -109,5 +112,6 @@ export {
     getTripsTakenByUser,
     getDestinationsVisitedByUser,
     getUpcomingTripsForUser, 
+    getDestinationsUserWillVisit,
     calculateTotalSpentThisYear, 
 }
