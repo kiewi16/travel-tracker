@@ -12,24 +12,29 @@ function getTripsTakenByUser(trips, userId) {
     const currentMonth = currentDate.getMonth() + 1
     const currentYear = currentDate.getFullYear()
    
-    console.log("day:", currentDay)
-    console.log("month:", currentMonth)
-    console.log("year:", currentYear)
+    // console.log("day:", currentDay)
+    // console.log("month:", currentMonth)
+    // console.log("year:", currentYear)
     const userTrips = trips.filter(trip => {
         return trip.userID === userId
     })
+    console.log("userTrips:", userTrips)
     const userTripsConvertedDate = userTrips.map(userTrip => {
         const tripDate = new Date(userTrip.date)
         return {
             day: tripDate.getDate(),
             month: tripDate.getMonth() + 1,
             year: tripDate.getFullYear(),
-            destinationID: userTrip.destinationID
+            destinationID: userTrip.destinationID,
+            duration: userTrip.duration, 
+            travelers: userTrip.travelers,
         }
     })
+    // console.log("new user object:", userTripsConvertedDate)
         const tripsTakenByUser = userTripsConvertedDate.filter(userTripConvertedDate => {
-            return userTripConvertedDate.year >= 2022 && userTripConvertedDate.month >= currentMonth && userTripConvertedDate.day > currentDay
+            return userTripConvertedDate.year <= currentYear && userTripConvertedDate.month <= currentMonth
         })
+        console.log("test:", tripsTakenByUser)
         return tripsTakenByUser
     }
 
