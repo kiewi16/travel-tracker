@@ -33,28 +33,26 @@ describe('Return User Data', function(){
 });
 
 describe('Return User Trips', function(){
-  it('should return trips taken by a user based on their user ID', function() {
+  
+  it('should return trips taken by a user before the current date based on their user ID', function() {
     const userId = 1
     const user1Trips = getTripsTakenByUser(allSampleTrips, userId);
 
     expect(user1Trips).to.deep.equal([{
-      "id":1,"userID":1,
-      "destinationID":49,
-      "travelers":1,
-      "date":"2022/09/16",
-      "duration":8,
-      "status":"approved",
-      "suggestedActivities":[],
+      "day": 16,
+      "month": 9,
+      "year": 2022,
+      "destinationID": 49,
+      "duration": 8, 
+      "travelers": 1
     },
     {
-      "id":11,
-      "userID":1,
-      "destinationID":5,
-      "travelers":4,
-      "date":"2022/10/14",
-      "duration":4,
-      "status":"approved",
-     "suggestedActivities":[]
+      "day": 14,
+      "month": 10,
+      "year": 2022,
+      "destinationID": 5,
+      "duration": 4,
+      "travelers": 4
     }]);
   });
   it('should return specific destinations a user has visted', function () {
