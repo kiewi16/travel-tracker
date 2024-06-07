@@ -21,6 +21,8 @@ export default {tripsSampleDataset:[
     {"id":20,"userID":9,"destinationID":47,"travelers":4,"date":"2022/07/21","duration":5,"status":"approved","suggestedActivities":[]},
     {"id":21,"userID":10,"destinationID":19,"travelers":4,"date":"2022/10/05","duration":6,"status":"approved","suggestedActivities":[]},
     {"id":22,"userID":11,"destinationID":23,"travelers":2,"date":"2021/11/10","duration":5,"status":"approved","suggestedActivities":[]},
-    {"id":23,"userID":3,"destinationID":37,"travelers":3,"date":"2019/05/19","duration":7,"status":"approved","suggestedActivities":[]},
+    {"id":23,"userID":2,"destinationID":36,"travelers":4,"date":"2020/06/21","duration":8,"status":"approved","suggestedActivities":[]},
+    {"id":24,"userID":3,"destinationID":37,"travelers":3,"date":"2019/05/19","duration":7,"status":"approved","suggestedActivities":[]},
+    {"id":25,"userID":10,"destinationID":27,"travelers":5,"date":"2021/04/06","duration":5,"status":"approved","suggestedActivities":[]},
 ]
 }
