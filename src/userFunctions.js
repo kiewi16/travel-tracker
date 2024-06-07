@@ -7,42 +7,29 @@ function getUserData(users, username) {
 }
 
 function getTripsTakenByUser(trips, userId) {
-    const currentDate = new Date ("2022/10/12") 
-    const currentDay = currentDate.getDate()
-    const currentMonth = currentDate.getMonth() + 1
-    const currentYear = currentDate.getFullYear()
-   
-    // console.log("day:", currentDay)
-    // console.log("month:", currentMonth)
-    // console.log("year:", currentYear)
+    const currentDate = new Date ("2022/06/12") 
+
     const userTrips = trips.filter(trip => {
         return trip.userID === userId
     })
-    console.log("userTrips:", userTrips)
+    // console.log("userTrips:", userTrips)
     const userTripsConvertedDate = userTrips.map(userTrip => {
-        const tripDate = new Date(userTrip.date)
         return {
-            day: tripDate.getDate(),
-            month: tripDate.getMonth() + 1,
-            year: tripDate.getFullYear(),
+            date: new Date(userTrip.date),
             destinationID: userTrip.destinationID,
             duration: userTrip.duration, 
             travelers: userTrip.travelers,
         }
     })
-    // console.log("new user object:", userTripsConvertedDate)
-        const tripsTakenByUser = userTripsConvertedDate.filter(userTripConvertedDate => {
-            return userTripConvertedDate.year <= currentYear && userTripConvertedDate.month <= currentMonth
+        // console.log("new user object:", userTripsConvertedDate)
+    const tripsTakenByUser = userTripsConvertedDate.filter(userTripConvertedDate => {
+        return userTripConvertedDate.date < currentDate
         })
-        console.log("test:", tripsTakenByUser)
         return tripsTakenByUser
     }
 
-function getDestinationsVisitedByUser(trips, destinations, userId) {
-    const userTrips = trips.filter(trip => {
-        return trip.userID === userId
-    })
-    const destinationIDs = userTrips.map(trip => {
+function getDestinationsVisitedByUser(tripsTakenByUser, destinations) {
+    const destinationIDs = tripsTakenByUser.map(trip => {
         return trip.destinationID
     })
     const userDestinations = destinations.filter(destination => {
@@ -51,10 +38,45 @@ function getDestinationsVisitedByUser(trips, destinations, userId) {
     const userDestinationsByName = userDestinations.map(destination => {
         return destination.destination
     })
+    // console.log(userDestinationsByName)
     return userDestinationsByName
 }
 
-function calculateTotalSpentThisYear (trips, destinations, userId) {
+function getUpcomingTripsForUser(trips, userId) {
+    const currentDate = new Date ("2022/06/12") 
+
+    const userTrips = trips.filter(trip => {
+        return trip.userID === userId
+    })
+    const userTripsConvertedDate = userTrips.map(userTrip => {
+        return {
+            date: new Date(userTrip.date),
+            destinationID: userTrip.destinationID,
+            duration: userTrip.duration, 
+            travelers: userTrip.travelers,
+        }
+    })
+    const upcomingTripsForUser = userTripsConvertedDate.filter(userTripConvertedDate => {
+        return userTripConvertedDate.date > currentDate
+        })
+        // console.log("upcomingTripsforUser:", upcomingTripsForUser)
+        return upcomingTripsForUser
+    }
+function getDestinationsUserWillVisit(upcomingTripsForUser, destinations) {
+    const destinationIDs = upcomingTripsForUser.map(trip => {
+        return trip.destinationID
+        })
+    const userDestinations = destinations.filter(destination => {
+        return destinationIDs.includes(destination.id)
+        })
+    const userUpComingDestinationsByName = userDestinations.map(destination => {
+        return destination.destination
+        })
+        // console.log(userDestinationsByName)
+        return userUpComingDestinationsByName
+    }
+
+function calculateTotalSpentThisYear(trips, destinations, userId) {
     const tripsTakenByUser = trips.filter(trip => {
         return trip.userID === userId && trip.status === "approved"
     })
@@ -86,5 +108,6 @@ export {
     getUserData,
     getTripsTakenByUser,
     getDestinationsVisitedByUser,
+    getUpcomingTripsForUser, 
     calculateTotalSpentThisYear, 
 }
