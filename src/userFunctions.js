@@ -7,11 +7,31 @@ function getUserData(users, username) {
 }
 
 function getTripsTakenByUser(trips, userId) {
+    const currentDate = new Date ("2022/10/12") 
+    const currentDay = currentDate.getDate()
+    const currentMonth = currentDate.getMonth() + 1
+    const currentYear = currentDate.getFullYear()
+   
+    console.log("day:", currentDay)
+    console.log("month:", currentMonth)
+    console.log("year:", currentYear)
     const userTrips = trips.filter(trip => {
         return trip.userID === userId
     })
-    return userTrips
-}
+    const userTripsConvertedDate = userTrips.map(userTrip => {
+        const tripDate = new Date(userTrip.date)
+        return {
+            day: tripDate.getDate(),
+            month: tripDate.getMonth() + 1,
+            year: tripDate.getFullYear(),
+            destinationID: userTrip.destinationID
+        }
+    })
+        const tripsTakenByUser = userTripsConvertedDate.filter(userTripConvertedDate => {
+            return userTripConvertedDate.year >= 2022 && userTripConvertedDate.month >= currentMonth && userTripConvertedDate.day > currentDay
+        })
+        return tripsTakenByUser
+    }
 
 function getDestinationsVisitedByUser(trips, destinations, userId) {
     const userTrips = trips.filter(trip => {
