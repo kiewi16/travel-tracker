@@ -1,4 +1,4 @@
-import { getUserData, getDestinationsVisitedByUser, calculateTotalSpentThisYear } from '../src/userFunctions.js'
+import { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, getUpcomingTripsForUser, getDestinationsUserWillVisit, calculateTotalSpentThisYear } from '../src/userFunctions.js'
 import usersSampleDataset from './data/users-sample-test-data.js'
 import tripsSampleDataset from './data/trips-sample-test-data.js'
 import destinationsSampleDataset from './data/destinations-sample-test-data.js'
@@ -35,14 +35,36 @@ function preFetchUserData(users, username) {
     const user = getUserData(users, username)
     const userId = user.id
     updateWelcomeMessage(user)
-    const destinationsVisitedByUser = getDestinationsVisitedByUser(trips, destinations, userId)
-    updateTripsTaken(destinationsVisitedByUser)
     const totalSpentThisYear = calculateTotalSpentThisYear(trips, destinations, userId)
     updateMoneySpent(totalSpentThisYear)
+    const tripsTakenByUser = getTripsTakenByUser(trips, userId)
+    const destinationsVisitedByUser = getDestinationsVisitedByUser(tripsTakenByUser, destinations)
+    updateTripsTaken(destinationsVisitedByUser)
+    const upcomingTripsForUser = getUpcomingTripsForUser(trips, userId)
+    const userUpComingDestinationsByName = getDestinationsUserWillVisit(upcomingTripsForUser, destinations) 
+    updateUpcomingTrips(userUpComingDestinationsByName)   
 }
 
 function updateWelcomeMessage(user) {
     welcomeMessage.innerText = `Let's Go On An Adventure, ${user.name}!`
+}
+
+function updateMoneySpent(totalSpentThisYear) {
+    let USDollar = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
+    totalAmountSpentThisYear.innerText = `Total Amount Spent on Trips in 2022 (including upcoming trips in 2022): ${USDollar.format(totalSpentThisYear)}`
+}
+
+function updateUpcomingTrips(upcomingTripsForUser) {
+    console.log("upcoming trips for user:", upcomingTripsForUser)
+    const container = document.querySelector('#upcoming-trips-container')
+    upcomingTripsForUser.forEach(upcomingTrip => {
+        const upcomingTripText = document.createElement('p')
+        upcomingTripText.innerText =`${upcomingTrip}`
+        container.appendChild(upcomingTripText);
+    })
 }
 
 function updateTripsTaken(destinationsVisitedByUser) {
@@ -54,6 +76,3 @@ function updateTripsTaken(destinationsVisitedByUser) {
     })
 }
 
-function updateMoneySpent(totalSpentThisYear) {
-    totalAmountSpentThisYear.innerText = `Total Amount Spent on Trips this Year: $${totalSpentThisYear}`
-}
