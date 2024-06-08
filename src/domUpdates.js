@@ -69,10 +69,16 @@ function updateUpcomingTrips(upcomingTripsForUser) {
 
 function updateTripsTaken(destinationsVisitedByUser) {
     const container = document.querySelector('#destinations-visited-container')
+
+    if(destinationsVisitedByUser.length === 0) {
+        const message = document.createElement('p');
+        message.textContent = 'You have no past trips!';
+        container.appendChild(message);
+    }
+    
     destinationsVisitedByUser.forEach(destinationVisited => {
-        const destinationVisitedText = document.createElement('p')
-        destinationVisitedText.innerText =`${destinationVisited}`
-        container.appendChild(destinationVisitedText);
+    const destinationVisitedText = document.createElement('p')
+    destinationVisitedText.innerText =`${destinationVisited}`
+    container.appendChild(destinationVisitedText);
     })
 }
-
