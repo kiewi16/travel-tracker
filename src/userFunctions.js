@@ -26,6 +26,24 @@ function getTripsTakenByUser(trips, userId) {
         return tripsTakenByUser
     }
 
+// function getDestinationsVisitedByUser(tripsTakenByUser, destinations) {
+//     if(tripsTakenByUser.length > 0) {
+//         const destinationIDs = tripsTakenByUser.map(trip => {
+//             return trip.destinationID
+//         })
+//         const userDestinations = destinations.filter(destination => {
+//             return destinationIDs.includes(destination.id)
+//         })
+//         const userDestinationsByName = userDestinations.map(destination => {
+//             return destination.destination
+//         })
+//         return userDestinationsByName
+//     } 
+//     else if(tripsTakenByUser.length === 0) {
+//         return 'You have not taken any prior trips!'
+//     }     
+// }
+
 function getDestinationsVisitedByUser(tripsTakenByUser, destinations) {
     const destinationIDs = tripsTakenByUser.map(trip => {
         return trip.destinationID
@@ -36,7 +54,7 @@ function getDestinationsVisitedByUser(tripsTakenByUser, destinations) {
     const userDestinationsByName = userDestinations.map(destination => {
         return destination.destination
     })
-    return userDestinationsByName
+        return userDestinationsByName    
 }
 
 function getUpcomingTripsForUser(trips, userId) {
@@ -59,16 +77,17 @@ function getUpcomingTripsForUser(trips, userId) {
         return upcomingTripsForUser
     }
 function getDestinationsUserWillVisit(upcomingTripsForUser, destinations) {
-    const destinationIDs = upcomingTripsForUser.map(trip => {
-        return trip.destinationID      
-   })
-    const userDestinations = destinations.filter(destination => {
-        return destinationIDs.includes(destination.id)
-        })
-    const userUpComingDestinationsByName = userDestinations.map(destination => {
-        return destination.destination
-        })
-        return userUpComingDestinationsByName
+        const destinationIDs = upcomingTripsForUser.map(trip => {
+            return trip.destinationID      
+       })
+        const userDestinations = destinations.filter(destination => {
+            return destinationIDs.includes(destination.id)
+            })
+        const userUpComingDestinationsByName = userDestinations.map(destination => {
+            return destination.destination
+            })
+            return userUpComingDestinationsByName
+   
     }
 
 function calculateTotalSpentThisYear(trips, destinations, userId) {
