@@ -1,4 +1,5 @@
 import { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, getUpcomingTripsForUser, getDestinationsUserWillVisit, calculateTotalSpentThisYear } from '../src/userFunctions.js'
+import { getDestinationId } from './bookTripFunctions.js'
 import { fetchData } from './apiCalls.js'
 // import usersSampleDataset from './data/users-sample-test-data.js'
 // import tripsSampleDataset from './data/trips-sample-test-data.js'
@@ -7,6 +8,8 @@ import { fetchData } from './apiCalls.js'
 // const users = usersSampleDataset.usersSampleDataset
 // const trips = tripsSampleDataset.tripsSampleDataset
 // const destinations = destinationsSampleDataset.destinationsSampleDataset
+let globalDestinationData = null; 
+
 const loginButton = document.querySelector('#login-button')
 const formSection = document.querySelector('.login-form-wrapper')
 const mainSection = document.querySelector('.main-wrapper')
@@ -44,6 +47,7 @@ function fetchUserData(username) {
     const trips = e[1].trips
     // console.log("trips:", trips)
     const destinations = e[2].destinations
+    globalDestinationData = destinations
     // console.log("destinations:", destinations)
     const totalSpentThisYear = calculateTotalSpentThisYear(trips, destinations, userId)
     updateMoneySpent(totalSpentThisYear)
@@ -104,7 +108,10 @@ function bookATrip(event) {
 
     // let id = +document.getElementById("id").value
     // let userId = +document.getElementById("user-id").value
-    let destinationId = +document.getElementById("destinations").value
+    // let destinationId = +document.getElementById("destinations").value
+    let destination = document.getElementById("destinations").value
+    let destinationId = getDestinationId(destination, globalDestinationData)
+    console.log("destinationId:", destinationId)
     let numOfTravelers = +document.getElementById("number-of-travelers").value
     let date = document.getElementById("date").value
     let duration = +document.getElementById("duration").value
@@ -113,17 +120,17 @@ function bookATrip(event) {
     let suggestedActivitiesArray = Array.from(suggestedActivities.selectedOptions, option => option.value)
     // console.log("idInput:", typeof id)
     // console.log("userIdInput:", typeof userId)
-    console.log("destinations:", typeof destinationId)
-    console.log("number-of-travelers:", typeof numOfTravelers)
-    console.log("date:", typeof date)
-    console.log("duration:", typeof duration)
+    // console.log("destinations:", typeof destinationId)
+    // console.log("number-of-travelers:", typeof numOfTravelers)
+    // console.log("date:", typeof date)
+    // console.log("duration:", typeof duration)
     // console.log("status:", typeof status)
-    console.log("suggestedActivitiesArray:", suggestedActivitiesArray)
+    // console.log("suggestedActivitiesArray:", suggestedActivitiesArray)
     let username = document.querySelector('#username').value;
     console.log("username:", username)
     let usernameId = +username.split("r").pop();
     console.log('usernameId:', typeof usernameId)
-    // destinationId === getDestinationId()
+    
     postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray)
 }
 
