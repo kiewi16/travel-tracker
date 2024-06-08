@@ -9,7 +9,7 @@ const allSampleTrips = tripsSampleDataset.tripsSampleDataset;
 const allSampleDestinations = destinationsSampleDataset.destinationsSampleDataset; 
 
 describe('Return User Data', function(){
-  it('should return user data based on their username', function() {
+  it('should return user data based on a provided username', function() {
     const username = "traveler1";
     const user1 = getUserData(allSampleUsers, username);
 
@@ -20,7 +20,7 @@ describe('Return User Data', function(){
     });
   });
 
-  it('should return a different user/s data based on their username', function() {
+  it('should return a different user/s data based on a provided username', function() {
     const username = "traveler10";
     const user10 = getUserData(allSampleUsers, username);
 
@@ -67,8 +67,13 @@ describe('Return Trips a User has Taken', function(){
       "travelers": 2
     }]);
   });
-  it('should return a message if a user has no past trips')
-  
+  it('should return nothing if a user has no past trips', function (){
+    const userId = 1
+    const user1Trips = getTripsTakenByUser(allSampleTrips, userId);
+
+    expect(user1Trips).to.deep.equal([])
+    expect(user1Trips.length).to.equal(0)
+  });
   it('should return the destinations a user has visted', function () {
     const userId = 3
     const user3Trips = getTripsTakenByUser(allSampleTrips, userId)
@@ -83,8 +88,6 @@ describe('Return Trips a User has Taken', function(){
 
     expect(user4Destinations).to.deep.equal(["Marrakesh, Morocco"]);
   });
-
-  it('should return a message if the user has not visited any destinations')
 });
 
 describe('Upcoming Trips for a User', function () {
@@ -114,7 +117,14 @@ describe('Upcoming Trips for a User', function () {
       "destinationID": 35,
       "duration": 10, 
       "travelers": 1,
-    }]);
+    }]); 
+  });
+  it('should return nothing if a user has no upcoming trips', function (){
+    const userId = 3
+    const user3UpcomingTrips = getUpcomingTripsForUser(allSampleTrips, userId)
+
+    expect(user3UpcomingTrips).to.deep.equal([])
+    expect(user3UpcomingTrips.length).to.equal(0)
   });
   it('should return the destinations a user will visit', function () {
     const userId = 1
@@ -133,11 +143,17 @@ describe('Upcoming Trips for a User', function () {
 });
 
 describe('Calculate Total Money Spent on Trips This Year', function () {
-  it('should calcuate the total spent on trips this year', function () {
+  it('should calcuate the total spent on trips this year by a user', function () {
     const userId = 1
     const user1TotalSpentThisYear = calculateTotalSpentThisYear(allSampleTrips, allSampleDestinations, userId)
 
     expect(user1TotalSpentThisYear).to.equal(9339)
+  });
+  it('should calcuate the total spent on trips this year by a different user', function () {
+    const userId = 10
+    const user10TotalSpentThisYear = calculateTotalSpentThisYear(allSampleTrips, allSampleDestinations, userId)
+
+    expect(user10TotalSpentThisYear).to.equal(29271)
   });
   it('should return 0 if the user has not spent any money on trips this year', function () {
     const userId = 11
