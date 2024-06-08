@@ -1,4 +1,5 @@
 import { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, getUpcomingTripsForUser, getDestinationsUserWillVisit, calculateTotalSpentThisYear } from '../src/userFunctions.js'
+import { fetchData } from './apiCalls.js'
 import usersSampleDataset from './data/users-sample-test-data.js'
 import tripsSampleDataset from './data/trips-sample-test-data.js'
 import destinationsSampleDataset from './data/destinations-sample-test-data.js'
@@ -24,17 +25,20 @@ function authenticateLogin(event) {
     if (username === `traveler${id}` && password === "travel" && id <= 50 && id > 0) {
         formSection.classList.add('hidden')
         mainSection.style.display = 'block'
-        preFetchUserData(users, username)
+        fetchUserData(username)
 
     } else {
         alert("Invalid username or password");
     }    
 }
 
-function preFetchUserData(users, username) {
-    const user = getUserData(users, username)
+function fetchUserData(username) {
+    Promise.all([fetchData('travelers'), fetchData('trips'), fetchData('destinations')]).then(e => {
+    const user = getUserData(e[0].travelers, username)
     const userId = user.id
     updateWelcomeMessage(user)
+    const trips = e[1].trips
+    const destinations = e[2].destinations
     const totalSpentThisYear = calculateTotalSpentThisYear(trips, destinations, userId)
     updateMoneySpent(totalSpentThisYear)
     const tripsTakenByUser = getTripsTakenByUser(trips, userId)
@@ -43,7 +47,22 @@ function preFetchUserData(users, username) {
     const upcomingTripsForUser = getUpcomingTripsForUser(trips, userId)
     const userUpcomingDestinationsByName = getDestinationsUserWillVisit(upcomingTripsForUser, destinations) 
     updateUpcomingTrips(userUpcomingDestinationsByName)   
+    })
 }
+
+// function preFetchUserData(users, username) {
+//     const user = getUserData(users, username)
+//     const userId = user.id
+//     updateWelcomeMessage(user)
+//     const totalSpentThisYear = calculateTotalSpentThisYear(trips, destinations, userId)
+//     updateMoneySpent(totalSpentThisYear)
+//     const tripsTakenByUser = getTripsTakenByUser(trips, userId)
+//     const destinationsVisitedByUser = getDestinationsVisitedByUser(tripsTakenByUser, destinations)
+//     updateTripsTaken(destinationsVisitedByUser)
+//     const upcomingTripsForUser = getUpcomingTripsForUser(trips, userId)
+//     const userUpcomingDestinationsByName = getDestinationsUserWillVisit(upcomingTripsForUser, destinations) 
+//     updateUpcomingTrips(userUpcomingDestinationsByName)   
+// }
 
 function updateWelcomeMessage(user) {
     welcomeMessage.innerText = `Let's Go On An Adventure, ${user.name}!`
