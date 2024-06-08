@@ -40,7 +40,36 @@
       </section>
       <h3 class="book-a-trip-header">Book A Trip!</h3>
       <section class="book-a-trip-wrapper">   
-        <div class="book-a-trip"></div>
+        <div class="book-a-trip">
+          <form id="book-a-trip-form">
+            <label for="id">Id:</label>
+            <input type="number" id="id">
+            <label for="user-id">User Id:</label>
+            <input type="number" id="user-id" placeholder="user id">
+            <label for="destinations">Destinations:</label>
+            <select name="destinations" id="destinations">
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select> 
+            <label for="number-of-travelers">Number of Travelers:</label>
+            <input type="number" id="number-of-travelers" placeholder="number of travelers">
+            <label for="date">Date:</label>
+            <input type="date" id="date" placeholder="date" min="2022-06-08" aria-required="Enter a valid date">
+            <label for="duration">Duration in Days:</label>
+            <input type="text" id="duration" placeholder="duration" aria-required="Enter a duration">  
+            <label for="status">Status:</label>
+            <select name="status" id="status">
+              <option value="pending">pending</option>
+            </select>
+            <label for="suggested-activities">Suggested Activities:</label>
+            <select name="suggested-activities" id="suggested-activities" multiple>
+              <option value="hike">Hike</option>
+              <option value="do nothing">Do Nothing</option>
+              <option value="eat">Eat</option>
+            </select>
+            <button type="submit" id="book-a-trip-button">Book My Trip!</button>
+          </form>
+        </div>
       </section>
     </section>
   </main> 
