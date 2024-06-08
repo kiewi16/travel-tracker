@@ -12,7 +12,6 @@ function getTripsTakenByUser(trips, userId) {
     const userTrips = trips.filter(trip => {
         return trip.userID === userId
     })
-    // console.log("userTrips:", userTrips)
     const userTripsConvertedDate = userTrips.map(userTrip => {
         return {
             date: new Date(userTrip.date),
@@ -21,7 +20,6 @@ function getTripsTakenByUser(trips, userId) {
             travelers: userTrip.travelers,
         }
     })
-    // console.log("new user object:", userTripsConvertedDate)
     const tripsTakenByUser = userTripsConvertedDate.filter(userTripConvertedDate => {
         return userTripConvertedDate.date < currentDate
         })
@@ -38,7 +36,6 @@ function getDestinationsVisitedByUser(tripsTakenByUser, destinations) {
     const userDestinationsByName = userDestinations.map(destination => {
         return destination.destination
     })
-    // console.log(userDestinationsByName)
     return userDestinationsByName
 }
 
@@ -59,11 +56,9 @@ function getUpcomingTripsForUser(trips, userId) {
     const upcomingTripsForUser = userTripsConvertedDate.filter(userTripConvertedDate => {
         return userTripConvertedDate.date > currentDate
         })
-        // console.log("upcomingTripsforUser:", upcomingTripsForUser)
         return upcomingTripsForUser
     }
 function getDestinationsUserWillVisit(upcomingTripsForUser, destinations) {
-    
     const destinationIDs = upcomingTripsForUser.map(trip => {
         return trip.destinationID      
    })
@@ -73,7 +68,6 @@ function getDestinationsUserWillVisit(upcomingTripsForUser, destinations) {
     const userUpComingDestinationsByName = userDestinations.map(destination => {
         return destination.destination
         })
-        console.log(userUpComingDestinationsByName)
         return userUpComingDestinationsByName
     }
 
