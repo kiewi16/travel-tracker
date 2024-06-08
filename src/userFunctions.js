@@ -24,7 +24,7 @@ function getTripsTakenByUser(trips, userId) {
         return userTripConvertedDate.date < currentDate
         })
         return tripsTakenByUser
-    }
+}
 
 // function getDestinationsVisitedByUser(tripsTakenByUser, destinations) {
 //     if(tripsTakenByUser.length > 0) {
@@ -73,22 +73,22 @@ function getUpcomingTripsForUser(trips, userId) {
     })
     const upcomingTripsForUser = userTripsConvertedDate.filter(userTripConvertedDate => {
         return userTripConvertedDate.date > currentDate
-        })
+    })
         return upcomingTripsForUser
-    }
+}
+
 function getDestinationsUserWillVisit(upcomingTripsForUser, destinations) {
-        const destinationIDs = upcomingTripsForUser.map(trip => {
-            return trip.destinationID      
-       })
-        const userDestinations = destinations.filter(destination => {
-            return destinationIDs.includes(destination.id)
-            })
-        const userUpComingDestinationsByName = userDestinations.map(destination => {
-            return destination.destination
-            })
-            return userUpComingDestinationsByName
-   
-    }
+    const destinationIDs = upcomingTripsForUser.map(trip => {
+        return trip.destinationID      
+    })
+    const userDestinations = destinations.filter(destination => {
+        return destinationIDs.includes(destination.id)
+    })
+    const userUpComingDestinationsByName = userDestinations.map(destination => {
+        return destination.destination
+    })
+    return userUpComingDestinationsByName
+}
 
 function calculateTotalSpentThisYear(trips, destinations, userId) {
     const startofYear = new Date ("2022/01/01") 
