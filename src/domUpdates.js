@@ -12,8 +12,10 @@ const formSection = document.querySelector('.login-form-wrapper')
 const mainSection = document.querySelector('.main-wrapper')
 const welcomeMessage = document.querySelector('.welcome-message')
 const totalAmountSpentThisYear = document.querySelector('.total-amount-spent-this-year')
+const bookTripButton = document.querySelector('#book-a-trip-button')
 
 loginButton.addEventListener('click', authenticateLogin)
+bookTripButton.addEventListener('click', bookATrip)
 
 function authenticateLogin(event) {
     event.preventDefault()
@@ -31,6 +33,9 @@ function authenticateLogin(event) {
         alert("Invalid username or password");
     }    
 }
+
+
+
 
 function fetchUserData(username) {
     Promise.all([fetchData('travelers'), fetchData('trips'), fetchData('destinations')]).then(e => {
@@ -53,20 +58,6 @@ function fetchUserData(username) {
     updateUpcomingTrips(userUpcomingDestinationsByName)   
     })
 }
-
-// function preFetchUserData(users, username) {
-//     const user = getUserData(users, username)
-//     const userId = user.id
-//     updateWelcomeMessage(user)
-//     const totalSpentThisYear = calculateTotalSpentThisYear(trips, destinations, userId)
-//     updateMoneySpent(totalSpentThisYear)
-//     const tripsTakenByUser = getTripsTakenByUser(trips, userId)
-//     const destinationsVisitedByUser = getDestinationsVisitedByUser(tripsTakenByUser, destinations)
-//     updateTripsTaken(destinationsVisitedByUser)
-//     const upcomingTripsForUser = getUpcomingTripsForUser(trips, userId)
-//     const userUpcomingDestinationsByName = getDestinationsUserWillVisit(upcomingTripsForUser, destinations) 
-//     updateUpcomingTrips(userUpcomingDestinationsByName)   
-// }
 
 function updateWelcomeMessage(user) {
     welcomeMessage.innerText = `Let's Go On An Adventure, ${user.name}!`
@@ -109,4 +100,48 @@ function updateTripsTaken(destinationsVisitedByUser) {
     destinationVisitedText.innerText =`${destinationVisited}`
     container.appendChild(destinationVisitedText)
     })
+}
+
+function bookATrip(event) {
+    event.preventDefault()
+
+    let id = +document.getElementById("id").value
+    let userId = +document.getElementById("user-id").value
+    let destinationId = +document.getElementById("destinations").value
+    let numOfTravelers = +document.getElementById("number-of-travelers").value
+    let date = document.getElementById("date").value
+    let duration = +document.getElementById("duration").value
+    let status = document.getElementById("status").value
+    let suggestedActivities = document.getElementById("suggested-activities")
+    let suggestedActivitiesArray = Array.from(suggestedActivities.selectedOptions, option => option.value)
+    console.log("idInput:", typeof id)
+    console.log("userIdInput:", typeof userId)
+    console.log("destinations:", typeof destinationId)
+    console.log("number-of-travelers:", typeof numOfTravelers)
+    console.log("date:", typeof date)
+    console.log("duration:", typeof duration)
+    console.log("status:", typeof status)
+    console.log("suggestedActivitiesArray:", suggestedActivitiesArray)
+    postTripData(id, userId, destinationId, numOfTravelers, date, duration, status, suggestedActivitiesArray)
+}
+
+function postTripData(id, userId, destinationId, numOfTravelers, date, duration, status, suggestedActivitiesArray) {
+    let formattedDate = date.split("-").join("/")
+    fetch('http://localhost:3001/api/v1/trips',{
+    method:"POST",
+    body: JSON.stringify({
+      id: id,
+      userID: userId,
+      destinationID: destinationId,
+      travelers: numOfTravelers,
+      date: formattedDate,
+      duration: duration,
+      status: status,
+      suggestedActivities: suggestedActivitiesArray
+    }),
+    headers: {'Content-Type': 'application/json'}
+  }).then(response => response.json())
+  .then(data => {
+    console.log("success:", data)
+  })
 }
