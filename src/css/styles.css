@@ -10,22 +10,29 @@ body, html {
 }
 
 .main-wrapper {
-    width: 100%
+    width: 100%;
 }
 .upcoming-trips-wrapper,
 .pending-trips-wrapper,
 .past-trips-wrapper,
 .book-a-trip-wrapper {
-    border: 5px hotpink solid;
-    height: 150px;
-    width: auto; 
+    border: 2px hotpink solid;
+    display: flex;
+    height: 100%;
+    width: 100%;
 }
 
 .upcoming-trips-header,
 .pending-trips-header,
 .past-trips-header,
-.book-a-trip-wrapper {
+.book-a-trip-header {
+    margin: 0; 
     text-align: center;
+}
+
+#destinations-visited-container {
+    max-width: 100%;
+    font-size: medium; 
 }
 
 .hidden {
