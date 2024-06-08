@@ -34,9 +34,6 @@ function authenticateLogin(event) {
     }    
 }
 
-
-
-
 function fetchUserData(username) {
     Promise.all([fetchData('travelers'), fetchData('trips'), fetchData('destinations')]).then(e => {
     const user = getUserData(e[0].travelers, username)
@@ -45,9 +42,9 @@ function fetchUserData(username) {
     console.log("userId:", userId)
     updateWelcomeMessage(user)
     const trips = e[1].trips
-    console.log("trips:", trips)
+    // console.log("trips:", trips)
     const destinations = e[2].destinations
-    console.log("destinations:", destinations)
+    // console.log("destinations:", destinations)
     const totalSpentThisYear = calculateTotalSpentThisYear(trips, destinations, userId)
     updateMoneySpent(totalSpentThisYear)
     const tripsTakenByUser = getTripsTakenByUser(trips, userId)
@@ -105,38 +102,44 @@ function updateTripsTaken(destinationsVisitedByUser) {
 function bookATrip(event) {
     event.preventDefault()
 
-    let id = +document.getElementById("id").value
-    let userId = +document.getElementById("user-id").value
+    // let id = +document.getElementById("id").value
+    // let userId = +document.getElementById("user-id").value
     let destinationId = +document.getElementById("destinations").value
     let numOfTravelers = +document.getElementById("number-of-travelers").value
     let date = document.getElementById("date").value
     let duration = +document.getElementById("duration").value
-    let status = document.getElementById("status").value
+    // let status = document.getElementById("status").value
     let suggestedActivities = document.getElementById("suggested-activities")
     let suggestedActivitiesArray = Array.from(suggestedActivities.selectedOptions, option => option.value)
-    console.log("idInput:", typeof id)
-    console.log("userIdInput:", typeof userId)
+    // console.log("idInput:", typeof id)
+    // console.log("userIdInput:", typeof userId)
     console.log("destinations:", typeof destinationId)
     console.log("number-of-travelers:", typeof numOfTravelers)
     console.log("date:", typeof date)
     console.log("duration:", typeof duration)
-    console.log("status:", typeof status)
+    // console.log("status:", typeof status)
     console.log("suggestedActivitiesArray:", suggestedActivitiesArray)
-    postTripData(id, userId, destinationId, numOfTravelers, date, duration, status, suggestedActivitiesArray)
+    let username = document.querySelector('#username').value;
+    console.log("username:", username)
+    let usernameId = +username.split("r").pop();
+    console.log('usernameId:', typeof usernameId)
+    // destinationId === getDestinationId()
+    postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray)
 }
 
-function postTripData(id, userId, destinationId, numOfTravelers, date, duration, status, suggestedActivitiesArray) {
+function postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray) {
     let formattedDate = date.split("-").join("/")
+    const uniqueTripId = Date.now()
     fetch('http://localhost:3001/api/v1/trips',{
     method:"POST",
     body: JSON.stringify({
-      id: id,
-      userID: userId,
+      id: uniqueTripId,
+      userID: usernameId,
       destinationID: destinationId,
       travelers: numOfTravelers,
       date: formattedDate,
       duration: duration,
-      status: status,
+      status: "pending",
       suggestedActivities: suggestedActivitiesArray
     }),
     headers: {'Content-Type': 'application/json'}
