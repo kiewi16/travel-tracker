@@ -41,8 +41,8 @@ function preFetchUserData(users, username) {
     const destinationsVisitedByUser = getDestinationsVisitedByUser(tripsTakenByUser, destinations)
     updateTripsTaken(destinationsVisitedByUser)
     const upcomingTripsForUser = getUpcomingTripsForUser(trips, userId)
-    const userUpComingDestinationsByName = getDestinationsUserWillVisit(upcomingTripsForUser, destinations) 
-    updateUpcomingTrips(userUpComingDestinationsByName)   
+    const userUpcomingDestinationsByName = getDestinationsUserWillVisit(upcomingTripsForUser, destinations) 
+    updateUpcomingTrips(userUpcomingDestinationsByName)   
 }
 
 function updateWelcomeMessage(user) {
@@ -58,8 +58,13 @@ function updateMoneySpent(totalSpentThisYear) {
 }
 
 function updateUpcomingTrips(upcomingTripsForUser) {
-    console.log("upcoming trips for user:", upcomingTripsForUser)
     const container = document.querySelector('#upcoming-trips-container')
+
+    if(upcomingTripsForUser.length === 0) {
+        const message = document.createElement('p')
+        message.innerText = 'You have no upcoming trips :(!'
+        container.appendChild(message); 
+    }
     upcomingTripsForUser.forEach(upcomingTrip => {
         const upcomingTripText = document.createElement('p')
         upcomingTripText.innerText =`${upcomingTrip}`
@@ -71,14 +76,14 @@ function updateTripsTaken(destinationsVisitedByUser) {
     const container = document.querySelector('#destinations-visited-container')
 
     if(destinationsVisitedByUser.length === 0) {
-        const message = document.createElement('p');
-        message.textContent = 'You have no past trips!';
+        const message = document.createElement('p')
+        message.innerText = 'You have no past trips!'
         container.appendChild(message);
     }
     
     destinationsVisitedByUser.forEach(destinationVisited => {
     const destinationVisitedText = document.createElement('p')
     destinationVisitedText.innerText =`${destinationVisited}`
-    container.appendChild(destinationVisitedText);
+    container.appendChild(destinationVisitedText)
     })
 }
