@@ -4,7 +4,8 @@ body, html {
     margin: 0; 
 }
 
-.welcome-message { 
+.welcome-message,
+.total-amount-spent-this-year { 
     text-align: center;
 }
 

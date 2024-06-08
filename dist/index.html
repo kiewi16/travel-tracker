@@ -23,11 +23,13 @@
     <section class="main-wrapper" hidden>
       <header>
         <h1 class="welcome-message">Welcome, User!</h1>
+        <p class="total-amount-spent-this-year">Total Amount Spent on Trips This Year (including Upcoming Trips):</p> 
       </header>
       <section class="upcoming-trips-wrapper">
         <h3 class="upcoming-trips-header">Upcoming Trips</h3>
-        <p class="no-upcoming-trips">No Upcoming Trips</p>
-        <div class="upcoming-trips">   
+        <div class="upcoming-trips">
+          <div id="upcoming-trips-container">  
+          </div>     
         </div>
       </section>
       <section class="pending-trips-wrapper">
@@ -37,12 +39,11 @@
         </div>
       </section>
       <section class="past-trips-wrapper">
-        <h3 class="past-trips-header">Past Trips</h3>
+        <h3 class="past-trips-header">All Past Trips</h3>
         <div class="past-trips">
           <div id="destinations-visited-container">  
           </div>  
-        </div>
-        <p class="total-amount-spent">Total Amount Spent on Trips This Year:</p> 
+        </div> 
       </section>
       <section class="book-a-trip-wrapper">
         <h3 class="book-a-trip-header">Book A Trip!</h3>
