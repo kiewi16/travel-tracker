@@ -1,12 +1,12 @@
 import { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, getUpcomingTripsForUser, getDestinationsUserWillVisit, calculateTotalSpentThisYear } from '../src/userFunctions.js'
 import { fetchData } from './apiCalls.js'
-import usersSampleDataset from './data/users-sample-test-data.js'
-import tripsSampleDataset from './data/trips-sample-test-data.js'
-import destinationsSampleDataset from './data/destinations-sample-test-data.js'
+// import usersSampleDataset from './data/users-sample-test-data.js'
+// import tripsSampleDataset from './data/trips-sample-test-data.js'
+// import destinationsSampleDataset from './data/destinations-sample-test-data.js'
 
-const users = usersSampleDataset.usersSampleDataset
-const trips = tripsSampleDataset.tripsSampleDataset
-const destinations = destinationsSampleDataset.destinationsSampleDataset
+// const users = usersSampleDataset.usersSampleDataset
+// const trips = tripsSampleDataset.tripsSampleDataset
+// const destinations = destinationsSampleDataset.destinationsSampleDataset
 const loginButton = document.querySelector('#login-button')
 const formSection = document.querySelector('.login-form-wrapper')
 const mainSection = document.querySelector('.main-wrapper')
@@ -35,10 +35,14 @@ function authenticateLogin(event) {
 function fetchUserData(username) {
     Promise.all([fetchData('travelers'), fetchData('trips'), fetchData('destinations')]).then(e => {
     const user = getUserData(e[0].travelers, username)
+    console.log('user:', user)
     const userId = user.id
+    console.log("userId:", userId)
     updateWelcomeMessage(user)
     const trips = e[1].trips
+    console.log("trips:", trips)
     const destinations = e[2].destinations
+    console.log("destinations:", destinations)
     const totalSpentThisYear = calculateTotalSpentThisYear(trips, destinations, userId)
     updateMoneySpent(totalSpentThisYear)
     const tripsTakenByUser = getTripsTakenByUser(trips, userId)
