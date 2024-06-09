@@ -13,10 +13,10 @@
     <form id="login-form">
       <label for="username">Username</label>
       <input type="text" id="username" placeholder="username" required>
-      <p id="username-error-message" class="username-error-message" hidden>Please enter a valid username.</p>
+      <!-- <p id="username-error-message" class="username-error-message" hidden>Please enter a valid username.</p> -->
       <label for="password">Password</label>
       <input type="text" id="password" placeholder="password" required>
-      <p id="password-error-message" class="password-error-message" hidden>Please enter a valid password.</p>
+      <!-- <p id="password-error-message" class="password-error-message" hidden>Please enter a valid password.</p> -->
       <button type="submit" id="login-button">Login</button>
     </form>
    </div>
@@ -32,7 +32,7 @@
       <h3 class="pending-trips-header">Pending Trips</h3>
       <section class="pending-trips-wrapper"> 
           <p class="no-pending-trips">No Pending Trips</p>
-        <div class="pending-trips"></div>
+        <div id="pending-trips-container"></div>
       </section>
       <h3 class="past-trips-header">All Past Trips</h3>
       <section class="past-trips-wrapper">
@@ -70,6 +70,7 @@
               <option value="nap">Nap</option>
               <option value="shop">Shop</option>
             </select>
+            <p id="trip-cost-display"></p>
             <button type="submit" id="book-a-trip-button">Book My Trip!</button>
           </form>
         </div>
