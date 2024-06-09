@@ -10,17 +10,22 @@
 <body>
   <main>
   <div class="login-form-wrapper">
-    <h1 class="login-message">To Travel is to Live!</h1>
-    <p class="please-login">Please Log In To Travel Tracker</p>
+    <h1 class="login-message">Welcome to Travel Tracker!</h1>
+    <h2 class="your-trusted-partner-in-travel">Your Trusted Partner In Travel</h2>
+    <p class="please-login">Please Log In</p>
     <form id="login-form">
       <label for="username">Username:</label>
       <input type="text" id="username" placeholder="username" required>
-      <!-- <p id="username-error-message" class="username-error-message" hidden>Please enter a valid username.</p> -->
       <label for="password">Password:</label>
       <input type="text" id="password" placeholder="password" required>
       <!-- <p id="password-error-message" class="password-error-message" hidden>Please enter a valid password.</p> -->
-      <button type="submit" id="login-button">Log In</button>
+      <button type="submit" id="login-button" disabled>Log In</button>
+      <p id="username-error-message" class="username-error-message" hidden>Please enter a valid username</p>
+    
     </form>
+    <div class="image-container">
+      <img src='./images/priscilla-du-preez-EFoH8YajQuA-unsplash.jpg' alt="turing logo">
+    </div>
    </div>
     <section class="main-wrapper" hidden>
       <header>
@@ -40,8 +45,10 @@
       <section class="past-trips-wrapper">
         <div id="destinations-visited-container"></div>  
       </section>
-      <h3 class="book-a-trip-header">Book A Trip!</h3>
       <section class="book-a-trip-wrapper">   
+      <h3 class="book-a-trip-header">Book A Trip With Us!</h3>
+      <!-- <p class="to-travel-is-to-live">To travel is to live!</p> -->
+      <p class="book-a-trip-info">For a small fee, we will curate a meticiously planned and unique itinerary to 1 of 5 international destinations! </p>
         <div class="book-a-trip">
           <form id="book-a-trip-form">
             <!-- <label for="id">Id:</label>
@@ -62,7 +69,7 @@
             <label for="date">Date:</label>
             <input type="date" id="date" placeholder="date" min="2022-06-12" aria-required="Enter a valid date">
             <label for="duration">Duration in Days:</label>
-            <input type="text" id="duration" placeholder="duration in days" aria-required="Enter a duration">  
+            <input type="number" id="duration" placeholder="duration in days" aria-required="Enter a duration">  
             <!-- <label for="status">Status:</label>
             <select name="status" id="status">
               <option value="pending">pending</option>
