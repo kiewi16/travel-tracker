@@ -1,5 +1,5 @@
 import { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, getUpcomingTripsForUser, getDestinationsUserWillVisit, calculateTotalSpentThisYear } from '../src/userFunctions.js'
-import { getDestinationId } from './bookTripFunctions.js'
+import { getDestinationId, calculateTripCost } from './bookTripFunctions.js'
 import { fetchData } from './apiCalls.js'
 // import usersSampleDataset from './data/users-sample-test-data.js'
 // import tripsSampleDataset from './data/trips-sample-test-data.js'
@@ -115,9 +115,12 @@ function bookATrip(event) {
     let numOfTravelers = +document.getElementById("number-of-travelers").value
     let date = document.getElementById("date").value
     let duration = +document.getElementById("duration").value
+    let tripCost = calculateTripCost(destinationId, globalDestinationData, numOfTravelers, duration)
+    console.log("trip cost:", tripCost)
     // let status = document.getElementById("status").value
     let suggestedActivities = document.getElementById("suggested-activities")
     let suggestedActivitiesArray = Array.from(suggestedActivities.selectedOptions, option => option.value)
+    displayTripCost(tripCost)
     // console.log("idInput:", typeof id)
     // console.log("userIdInput:", typeof userId)
     // console.log("destinations:", typeof destinationId)
@@ -132,6 +135,11 @@ function bookATrip(event) {
     console.log('usernameId:', typeof usernameId)
     
     postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray)
+    updatePendingTrips(destination, date)
+}
+
+function displayTripCost(tripCost) {
+    document.getElementById('trip-cost-display').innerText = `Estimated Trip Cost: $${tripCost.toFixed(2)}`
 }
 
 function postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray) {
@@ -154,4 +162,17 @@ function postTripData(usernameId, destinationId, numOfTravelers, date, duration,
   .then(data => {
     console.log("success:", data)
   })
+}
+
+function updatePendingTrips(destination, date) {
+    const pendingTripsContainer = document.getElementById('pending-trips-container')
+
+    const noPendingTripsMessage = document.querySelector('.no-pending-trips')
+    if (noPendingTripsMessage) {
+        noPendingTripsMessage.remove()
+    }
+
+    const message = document.createElement('p')
+        message.innerText = `Your trip to ${destination} on ${date} is pending`
+        pendingTripsContainer.appendChild(message)
 }
