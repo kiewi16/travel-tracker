@@ -1,4 +1,4 @@
-import { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, getUpcomingTripsForUser, getDestinationsUserWillVisit, calculateTotalSpentThisYear } from '../src/userFunctions.js'
+import { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, getUpcomingTripsForUser, getDestinationsUserWillVisit, getPendingTripsForUser, getPendingDestinations, calculateTotalSpentThisYear } from '../src/userFunctions.js'
 import { getDestinationId, calculateTripCost } from './bookTripFunctions.js'
 import { fetchData } from './apiCalls.js'
 // import usersSampleDataset from './data/users-sample-test-data.js'
@@ -71,7 +71,11 @@ function fetchUserData(username) {
     const upcomingTripsForUser = getUpcomingTripsForUser(trips, userId)
     const userUpcomingDestinationsByName = getDestinationsUserWillVisit(upcomingTripsForUser, destinations) 
     updateUpcomingTrips(userUpcomingDestinationsByName, upcomingTripsForUser)
-    // updatePendingTrips   
+
+    const pendingTripsForUser = getPendingTripsForUser(trips, userId)
+    const userPendingDestinationsByName = getPendingDestinations(pendingTripsForUser, destinations)
+    updatePendingTrips(userPendingDestinationsByName, pendingTripsForUser)
+ 
     })
 }
 
@@ -88,14 +92,12 @@ function updateMoneySpent(totalSpentThisYear) {
 }
 
 function updateUpcomingTrips(userUpcomingDestinationsByName, upcomingTripsForUser) {
-    console.log("line 91:", upcomingTripsForUser)
-    console.log("line 92:", userUpcomingDestinationsByName)
-    const container = document.querySelector('#upcoming-trips-container')
+    const upcomingTripsContainer = document.querySelector('#upcoming-trips-container')
 
     if(userUpcomingDestinationsByName.length === 0) {
         const message = document.createElement('p')
         message.innerText = 'No upcoming trips 😭!'
-        container.appendChild(message); 
+        upcomingTripsContainer.appendChild(message); 
     }
     userUpcomingDestinationsByName.forEach(userUpcomingDestination => {
         upcomingTripsForUser.forEach(upcomingTrip => {
@@ -104,7 +106,7 @@ function updateUpcomingTrips(userUpcomingDestinationsByName, upcomingTripsForUse
             const formattedDate = `${tripDate.toLocaleString('en-US', {month: 'short'})} ${tripDate.getDate()}, ${tripDate.getFullYear()}`;
             const upcomingTripText = document.createElement('p')
             upcomingTripText.innerText =`${userUpcomingDestination} departing on ${formattedDate}`
-            container.appendChild(upcomingTripText);
+            upcomingTripsContainer.appendChild(upcomingTripText);
         })          
     })
 }
@@ -190,15 +192,24 @@ function postTripData(usernameId, destinationId, numOfTravelers, date, duration,
   })
 }
 
-function updatePendingTrips(destination, date) {
+function updatePendingTrips(userPendingDestinationsByName, pendingTripsForUser) {
     const pendingTripsContainer = document.getElementById('pending-trips-container')
 
-    const noPendingTripsMessage = document.querySelector('.no-pending-trips')
-    if (noPendingTripsMessage) {
-        noPendingTripsMessage.remove()
+    if (userPendingDestinationsByName.length === 0) {
+        const message = document.createElement('p')
+        message.innerText = 'No pending trips'
+        pendingTripsContainer.appendChild(message); 
     }
 
-    const message = document.createElement('p')
-        message.innerText = `Your trip to ${destination} on ${date} is pending travel agent approval`
-        pendingTripsContainer.appendChild(message)
+    userPendingDestinationsByName.forEach(pendingDestination => {
+        pendingTripsForUser.forEach(pendingTrip => {
+            const pendingTripDate = new Date(pendingTrip.date)
+
+            const formattedDate = `${pendingTripDate.toLocaleString('en-US', {month: 'short'})} ${pendingTripDate.getDate()}, ${pendingTripDate.getFullYear()}`;
+            const pendingTripText = document.createElement('p')
+            pendingTripText.innerText =`${pendingDestination} departing on ${formattedDate}`
+            pendingTripsContainer.appendChild(pendingTripText);
+        })
+      
+    })
 }
