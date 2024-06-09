@@ -10,12 +10,25 @@ import { fetchData } from './apiCalls.js'
 // const destinations = destinationsSampleDataset.destinationsSampleDataset
 let globalDestinationData = null; 
 
+const usernameInput = document.querySelector('#username')
+const usernameErrorMessage = document.querySelector(".username-error-message")
 const loginButton = document.querySelector('#login-button')
 const formSection = document.querySelector('.login-form-wrapper')
 const mainSection = document.querySelector('.main-wrapper')
 const welcomeMessage = document.querySelector('.welcome-message')
 const totalAmountSpentThisYear = document.querySelector('.total-amount-spent-this-year')
 const bookTripButton = document.querySelector('#book-a-trip-button')
+
+usernameInput.addEventListener('input', () => {
+    const usernameInputId = usernameInput.value.split("r").pop()
+    if(usernameInput.value.includes("traveler") && usernameInputId <= 50 && usernameInputId > 0) {
+        loginButton.removeAttribute('disabled')
+        usernameErrorMessage.setAttribute('hidden', '')
+
+    } else {
+        usernameErrorMessage.removeAttribute('hidden')
+    }      
+})
 
 loginButton.addEventListener('click', authenticateLogin)
 bookTripButton.addEventListener('click', bookATrip)
@@ -45,7 +58,7 @@ function fetchUserData(username) {
     console.log("userId:", userId)
     updateWelcomeMessage(user)
     const trips = e[1].trips
-    // console.log("trips:", trips)
+    console.log("trips:", trips)
     const destinations = e[2].destinations
     globalDestinationData = destinations
     // console.log("destinations:", destinations)
@@ -77,7 +90,7 @@ function updateUpcomingTrips(upcomingTripsForUser) {
 
     if(upcomingTripsForUser.length === 0) {
         const message = document.createElement('p')
-        message.innerText = 'You have no upcoming trips :(!'
+        message.innerText = 'No upcoming trips 😭!'
         container.appendChild(message); 
     }
     upcomingTripsForUser.forEach(upcomingTrip => {
@@ -103,6 +116,7 @@ function updateTripsTaken(destinationsVisitedByUser) {
     })
 }
 
+
 function bookATrip(event) {
     event.preventDefault()
 
@@ -120,6 +134,7 @@ function bookATrip(event) {
     // let status = document.getElementById("status").value
     let suggestedActivities = document.getElementById("suggested-activities")
     let suggestedActivitiesArray = Array.from(suggestedActivities.selectedOptions, option => option.value)
+    
     displayTripCost(tripCost)
     // console.log("idInput:", typeof id)
     // console.log("userIdInput:", typeof userId)
@@ -136,6 +151,8 @@ function bookATrip(event) {
     
     postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray)
     updatePendingTrips(destination, date)
+
+    document.getElementById('book-a-trip-form').reset();
 }
 
 function displayTripCost(tripCost) {
@@ -173,6 +190,6 @@ function updatePendingTrips(destination, date) {
     }
 
     const message = document.createElement('p')
-        message.innerText = `Your trip to ${destination} on ${date} is pending`
+        message.innerText = `Your trip to ${destination} on ${date} is pending travel agent approval`
         pendingTripsContainer.appendChild(message)
 }
