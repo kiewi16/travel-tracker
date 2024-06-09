@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../src/css/styles.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +9,17 @@
 </head>
 <body>
   <main>
-    <div class="login-form-wrapper">
+  <div class="login-form-wrapper">
     <h1 class="login-message">To Travel is to Live!</h1>
+    <p class="please-login">Please Log In To Travel Tracker</p>
     <form id="login-form">
-      <label for="username">Username</label>
+      <label for="username">Username:</label>
       <input type="text" id="username" placeholder="username" required>
       <!-- <p id="username-error-message" class="username-error-message" hidden>Please enter a valid username.</p> -->
-      <label for="password">Password</label>
+      <label for="password">Password:</label>
       <input type="text" id="password" placeholder="password" required>
       <!-- <p id="password-error-message" class="password-error-message" hidden>Please enter a valid password.</p> -->
-      <button type="submit" id="login-button">Login</button>
+      <button type="submit" id="login-button">Log In</button>
     </form>
    </div>
     <section class="main-wrapper" hidden>
@@ -48,17 +50,19 @@
             <input type="number" id="user-id" placeholder="user id"> -->
             <label for="destinations">Destinations:</label>
             <select name="destinations" id="destinations">
+              <option value="">Select a Destination</option>
               <option value="Lima, Peru">Lima, Peru</option>
               <option value="Stockholm, Sweden">Stockholm, Sweden</option>
               <option value="Sydney, Austrailia">Sydney, Austrailia</option>
               <option value="Cartagena, Colombia">Cartagena, Colombia</option>
+              <option value="Madrid, Spain">Madrid, Spain</option>
             </select> 
             <label for="number-of-travelers">Number of Travelers:</label>
             <input type="number" id="number-of-travelers" placeholder="number of travelers">
             <label for="date">Date:</label>
-            <input type="date" id="date" placeholder="date" min="2022-06-08" aria-required="Enter a valid date">
+            <input type="date" id="date" placeholder="date" min="2022-06-12" aria-required="Enter a valid date">
             <label for="duration">Duration in Days:</label>
-            <input type="text" id="duration" placeholder="duration" aria-required="Enter a duration">  
+            <input type="text" id="duration" placeholder="duration in days" aria-required="Enter a duration">  
             <!-- <label for="status">Status:</label>
             <select name="status" id="status">
               <option value="pending">pending</option>
