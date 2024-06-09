@@ -10,7 +10,7 @@ function getTripsTakenByUser(trips, userId) {
     const currentDate = new Date ("2022/06/12") 
 
     const userTrips = trips.filter(trip => {
-        return trip.userID === userId
+        return trip.userID === userId && trip.status === "approved"
     })
     const userTripsConvertedDate = userTrips.map(userTrip => {
         return {
@@ -61,7 +61,7 @@ function getUpcomingTripsForUser(trips, userId) {
     const currentDate = new Date ("2022/06/12") 
 
     const userTrips = trips.filter(trip => {
-        return trip.userID === userId
+        return trip.userID === userId && trip.status === "approved"
     })
     const userTripsConvertedDate = userTrips.map(userTrip => {
         return {
@@ -120,6 +120,7 @@ function calculateTotalSpentThisYear(trips, destinations, userId) {
     const totalSpentWithAgentFee = (totalSpent * .10) + totalSpent
     return totalSpentWithAgentFee
 }
+
 export {
     getUserData,
     getTripsTakenByUser,
