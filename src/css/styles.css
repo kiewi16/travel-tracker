@@ -32,8 +32,9 @@ body, html {
 }
 
 img {
-    height: 50vh; 
-    width: 50vw;
+    margin-top: 20px;
+    height: 55vh; 
+    width: 55vw;
     align-items: center;
 
 }
