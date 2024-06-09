@@ -65,11 +65,13 @@ function fetchUserData(username) {
     const totalSpentThisYear = calculateTotalSpentThisYear(trips, destinations, userId)
     updateMoneySpent(totalSpentThisYear)
     const tripsTakenByUser = getTripsTakenByUser(trips, userId)
+    console.log("trips taken by user:", tripsTakenByUser)
     const destinationsVisitedByUser = getDestinationsVisitedByUser(tripsTakenByUser, destinations)
     updateTripsTaken(destinationsVisitedByUser)
     const upcomingTripsForUser = getUpcomingTripsForUser(trips, userId)
     const userUpcomingDestinationsByName = getDestinationsUserWillVisit(upcomingTripsForUser, destinations) 
-    updateUpcomingTrips(userUpcomingDestinationsByName)   
+    updateUpcomingTrips(userUpcomingDestinationsByName, upcomingTripsForUser)
+    // updatePendingTrips   
     })
 }
 
@@ -85,18 +87,25 @@ function updateMoneySpent(totalSpentThisYear) {
     totalAmountSpentThisYear.innerText = `Total Amount Spent on Trips in 2022 (including upcoming trips in 2022): ${USDollar.format(totalSpentThisYear)}`
 }
 
-function updateUpcomingTrips(upcomingTripsForUser) {
+function updateUpcomingTrips(userUpcomingDestinationsByName, upcomingTripsForUser) {
+    console.log("line 91:", upcomingTripsForUser)
+    console.log("line 92:", userUpcomingDestinationsByName)
     const container = document.querySelector('#upcoming-trips-container')
 
-    if(upcomingTripsForUser.length === 0) {
+    if(userUpcomingDestinationsByName.length === 0) {
         const message = document.createElement('p')
         message.innerText = 'No upcoming trips 😭!'
         container.appendChild(message); 
     }
-    upcomingTripsForUser.forEach(upcomingTrip => {
-        const upcomingTripText = document.createElement('p')
-        upcomingTripText.innerText =`${upcomingTrip}`
-        container.appendChild(upcomingTripText);
+    userUpcomingDestinationsByName.forEach(userUpcomingDestination => {
+        upcomingTripsForUser.forEach(upcomingTrip => {
+            const tripDate = new Date(upcomingTrip.date)
+
+            const formattedDate = `${tripDate.toLocaleString('en-US', {month: 'short'})} ${tripDate.getDate()}, ${tripDate.getFullYear()}`;
+            const upcomingTripText = document.createElement('p')
+            upcomingTripText.innerText =`${userUpcomingDestination} departing on ${formattedDate}`
+            container.appendChild(upcomingTripText);
+        })          
     })
 }
 
