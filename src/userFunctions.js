@@ -90,6 +90,39 @@ function getDestinationsUserWillVisit(upcomingTripsForUser, destinations) {
     return userUpComingDestinationsByName
 }
 
+function getPendingTripsForUser(trips, userId) {
+    const currentDate = new Date ("2022/06/12") 
+
+    const userPendingTrips = trips.filter(trip => {
+        return trip.userID === userId && trip.status === "pending"
+    })
+    const userPendingTripsConvertedDate = userPendingTrips.map(userPendingTrip => {
+        return {
+            date: new Date(userPendingTrip.date),
+            destinationID: userPendingTrip.destinationID,
+            duration: userPendingTrip.duration, 
+            travelers: userPendingTrip.travelers,
+        }
+    })
+    const pendingTripsForUser = userPendingTripsConvertedDate.filter(userPendingTripConvertedDate => {
+        return userPendingTripConvertedDate.date > currentDate
+    })
+        return pendingTripsForUser
+}
+
+function getPendingDestinations(pendingTripsForUser, destinations) {
+    const destinationIDs = pendingTripsForUser.map(trip => {
+        return trip.destinationID      
+    })
+    const userPendingDestinations = destinations.filter(destination => {
+        return destinationIDs.includes(destination.id)
+    })
+    const userPendingDestinationsByName = userPendingDestinations.map(destination => {
+        return destination.destination
+    })
+    return userPendingDestinationsByName
+}
+
 function calculateTotalSpentThisYear(trips, destinations, userId) {
     const startofYear = new Date ("2022/01/01") 
     const endofYear = new Date ("2022/12/31")
@@ -127,5 +160,7 @@ export {
     getDestinationsVisitedByUser,
     getUpcomingTripsForUser, 
     getDestinationsUserWillVisit,
-    calculateTotalSpentThisYear, 
+    getPendingTripsForUser,
+    getPendingDestinations,   
+    calculateTotalSpentThisYear,    
 }
