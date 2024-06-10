@@ -143,55 +143,55 @@ describe('Upcoming Trips for a User', function () {
 });
 
 describe('Trips Pending for a User', function () {
-  it.only('should return the pending trips for a user', function () {
+  it('should return the pending trips for a user', function () {
     const userId = 1
     const user1PendingTrips = getPendingTripsForUser(allSampleTrips, userId, allSampleDestinations)
 
     expect(user1PendingTrips).to.deep.equal([{
       "date": new Date ("2022/11/22"),
-      "destinationID": 25,
+      "destination": "New York, New York",
       "duration": 4, 
       "travelers": 7,
     }]);
   });
   it('should return the pending trips for a different user', function () {
     const userId = 4
-    const user4PendingTrips = getPendingTripsForUser(allSampleTrips, userId)
+    const user4PendingTrips = getPendingTripsForUser(allSampleTrips, userId, allSampleDestinations)
 
     expect(user4PendingTrips).to.deep.equal([{
       "date": new Date ("2022/10/04"),
-      "destinationID": 41,
+      "destination": "Montego Bay, Jamaica",
       "duration": 2, 
       "travelers": 4,
     }]);
   });
   it('should return nothing if a user has no pending trips', function () {
     const userId = 9
-    const user9PendingTrips = getPendingTripsForUser(allSampleTrips, userId)
+    const user9PendingTrips = getPendingTripsForUser(allSampleTrips, userId. allSampleDestinations)
 
     expect(user9PendingTrips).to.deep.equal([]);
   });
-  it('should return the pending destinations for a user', function () {
-    const userId = 1
-    const user1PendingTrips = getPendingTripsForUser(allSampleTrips, userId)
-    const user1PendingDestinations = getPendingDestinations(user1PendingTrips, allSampleDestinations)
+  // it('should return the pending destinations for a user', function () {
+  //   const userId = 1
+  //   const user1PendingTrips = getPendingTripsForUser(allSampleTrips, userId)
+  //   const user1PendingDestinations = getPendingDestinations(user1PendingTrips, allSampleDestinations)
 
-    expect(user1PendingDestinations).to.deep.equal(["New York, New York"]);
-  });
-  it('should return the pending destinations for a different user', function () {
-    const userId = 4
-    const user4PendingTrips = getPendingTripsForUser(allSampleTrips, userId)
-    const user4PendingDestinations = getPendingDestinations(user4PendingTrips, allSampleDestinations)
+  //   expect(user1PendingDestinations).to.deep.equal(["New York, New York"]);
+  // });
+  // it('should return the pending destinations for a different user', function () {
+  //   const userId = 4
+  //   const user4PendingTrips = getPendingTripsForUser(allSampleTrips, userId)
+  //   const user4PendingDestinations = getPendingDestinations(user4PendingTrips, allSampleDestinations)
 
-    expect(user4PendingDestinations).to.deep.equal(["Montego Bay, Jamaica"]);
-  });
-  it('should return nothing if a user has no pending destinations', function () {
-    const userId = 9
-    const user9PendingTrips = getPendingTripsForUser(allSampleTrips, userId)
-    const user9PendingDestinations = getPendingDestinations(user9PendingTrips, allSampleDestinations)
+  //   expect(user4PendingDestinations).to.deep.equal(["Montego Bay, Jamaica"]);
+  // });
+  // it('should return nothing if a user has no pending destinations', function () {
+  //   const userId = 9
+  //   const user9PendingTrips = getPendingTripsForUser(allSampleTrips, userId)
+  //   const user9PendingDestinations = getPendingDestinations(user9PendingTrips, allSampleDestinations)
 
-    expect(user9PendingDestinations).to.deep.equal([]);
-  });
+  //   expect(user9PendingDestinations).to.deep.equal([]);
+  // });
 });
 
 describe('Calculate Total Money Spent on Trips This Year', function () {
