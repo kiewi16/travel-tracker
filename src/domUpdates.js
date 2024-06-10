@@ -35,20 +35,12 @@ usernameInput.addEventListener('input', () => {
     }      
 })
 
-// document.addEventListener('DOMContentLoaded', (event) => {
-//     const destinationsSelect = document.getElementById('destinations');
-//     destinationsSelect.addEventListener('input', (event) => {
-//         console.log("Selected destination line 39:", event.target.value);
-//     });
-// });
-
-
 loginButton.addEventListener('click', authenticateLogin)
-bookTripButton.addEventListener('click', bookATrip)
 calculateTripCostButton.addEventListener('click', displayTripCost)
 destinationInput.addEventListener('input', validateInputs)
 numOfTravelersInput.addEventListener('input', validateInputs)
 durationInput.addEventListener('input', validateInputs)
+bookTripButton.addEventListener('click', bookATrip)
 
 
 function validateInputs() {
@@ -143,7 +135,7 @@ function updatePendingTrips(pendingTripsForUser) {
     }
         pendingTripsForUser.forEach(pendingTrip=> {
             const pendingTripText = document.createElement('p')
-            pendingTripText.innerText =`${pendingTrip.travelers} people traveling to ${pendingTrip.destination} for ${pendingTrip.duration} nights`
+            pendingTripText.innerText =`${pendingTrip.travelers} people traveling to ${pendingTrip.destination} for ${pendingTrip.duration} nights on ${pendingTrip.date}`
             pendingTripsContainer.appendChild(pendingTripText) 
         })
     } 
