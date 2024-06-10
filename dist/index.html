@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../src/css/styles.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,22 +9,28 @@
 </head>
 <body>
   <main>
-    <div class="login-form-wrapper">
-    <h1 class="login-message">To Travel is to Live!</h1>
+  <div class="login-form-wrapper">
+    <h1 class="login-message">Welcome to Travel Tracker!</h1>
+    <h2 class="your-trusted-partner-in-travel">Your Trusted Partner In Travel</h2>
+    <p class="please-login">Please Log In</p>
     <form id="login-form">
-      <label for="username">Username</label>
+      <label for="username">Username:</label>
       <input type="text" id="username" placeholder="username" required>
-      <!-- <p id="username-error-message" class="username-error-message" hidden>Please enter a valid username.</p> -->
-      <label for="password">Password</label>
+      <label for="password">Password:</label>
       <input type="text" id="password" placeholder="password" required>
       <!-- <p id="password-error-message" class="password-error-message" hidden>Please enter a valid password.</p> -->
-      <button type="submit" id="login-button">Login</button>
+      <button type="submit" id="login-button" disabled>Log In</button>
+      <p id="username-error-message" class="username-error-message" hidden>Please enter a valid username</p>
+    
     </form>
+    <div class="image-container">
+      <img src='./images/priscilla-du-preez-EFoH8YajQuA-unsplash.jpg' alt="travel the world spelled out using scrabble tiles">
+    </div>
    </div>
     <section class="main-wrapper" hidden>
       <header>
         <h1 class="welcome-message">Welcome, User!</h1>
-        <p class="total-amount-spent-this-year">Total Amount Spent on Trips This Year (including Upcoming Trips):</p> 
+        <p class="total-amount-spent-this-year">Total Amount Spent on Trips This Year:</p> 
       </header>
       <h3 class="upcoming-trips-header">Upcoming Trips</h3>
       <section class="upcoming-trips-wrapper">    
@@ -31,38 +38,32 @@
       </section>
       <h3 class="pending-trips-header">Pending Trips</h3>
       <section class="pending-trips-wrapper"> 
-          <p class="no-pending-trips">No Pending Trips</p>
         <div id="pending-trips-container"></div>
       </section>
       <h3 class="past-trips-header">All Past Trips</h3>
       <section class="past-trips-wrapper">
         <div id="destinations-visited-container"></div>  
       </section>
-      <h3 class="book-a-trip-header">Book A Trip!</h3>
       <section class="book-a-trip-wrapper">   
+      <h3 class="book-a-trip-header">Book A Trip With Us!</h3>
+      <p class="book-a-trip-info">For a small fee, we will curate a meticiously planned and unique itinerary to 1 of 5 international destinations. </p>
         <div class="book-a-trip">
           <form id="book-a-trip-form">
-            <!-- <label for="id">Id:</label>
-            <input type="number" id="id"> -->
-            <!-- <label for="user-id">User Id:</label>
-            <input type="number" id="user-id" placeholder="user id"> -->
             <label for="destinations">Destinations:</label>
-            <select name="destinations" id="destinations">
+            <select name="destinations" id="destinations" required>
+              <option value="">Select a Destination</option>
               <option value="Lima, Peru">Lima, Peru</option>
               <option value="Stockholm, Sweden">Stockholm, Sweden</option>
               <option value="Sydney, Austrailia">Sydney, Austrailia</option>
               <option value="Cartagena, Colombia">Cartagena, Colombia</option>
+              <option value="Madrid, Spain">Madrid, Spain</option>
             </select> 
             <label for="number-of-travelers">Number of Travelers:</label>
-            <input type="number" id="number-of-travelers" placeholder="number of travelers">
-            <label for="date">Date:</label>
-            <input type="date" id="date" placeholder="date" min="2022-06-08" aria-required="Enter a valid date">
+            <input type="number" id="number-of-travelers" placeholder="number of travelers" required>
             <label for="duration">Duration in Days:</label>
-            <input type="text" id="duration" placeholder="duration" aria-required="Enter a duration">  
-            <!-- <label for="status">Status:</label>
-            <select name="status" id="status">
-              <option value="pending">pending</option>
-            </select> -->
+            <input type="number" id="duration" placeholder="duration in days" aria-required="Enter a duration"> 
+            <label for="date">Date:</label>
+            <input type="date" id="date" placeholder="date" min="2022-06-12" aria-required="Enter a valid date">
             <label for="suggested-activities">Suggested Activities:</label>
             <select name="suggested-activities" id="suggested-activities" multiple>
               <option value="eat">Eat</option>
@@ -70,8 +71,11 @@
               <option value="nap">Nap</option>
               <option value="shop">Shop</option>
             </select>
+            <p class="error-message"></p>
             <p id="trip-cost-display"></p>
-            <button type="submit" id="book-a-trip-button">Book My Trip!</button>
+            <button type="submit" class="calculate-trip-cost-button" id="calculate-trip-cost" disabled="disabled">Calculate Trip Cost</button>
+            <button type="submit" class="book-a-trip-button" id="book-a-trip-button">Book My Trip!</button>
+            <p class="calculate-trip-cost-error-message"></p>
           </form>
         </div>
       </section>

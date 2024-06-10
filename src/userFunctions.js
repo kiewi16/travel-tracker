@@ -26,24 +26,6 @@ function getTripsTakenByUser(trips, userId) {
         return tripsTakenByUser
 }
 
-// function getDestinationsVisitedByUser(tripsTakenByUser, destinations) {
-//     if(tripsTakenByUser.length > 0) {
-//         const destinationIDs = tripsTakenByUser.map(trip => {
-//             return trip.destinationID
-//         })
-//         const userDestinations = destinations.filter(destination => {
-//             return destinationIDs.includes(destination.id)
-//         })
-//         const userDestinationsByName = userDestinations.map(destination => {
-//             return destination.destination
-//         })
-//         return userDestinationsByName
-//     } 
-//     else if(tripsTakenByUser.length === 0) {
-//         return 'You have not taken any prior trips!'
-//     }     
-// }
-
 function getDestinationsVisitedByUser(tripsTakenByUser, destinations) {
     const destinationIDs = tripsTakenByUser.map(trip => {
         return trip.destinationID
@@ -90,6 +72,71 @@ function getDestinationsUserWillVisit(upcomingTripsForUser, destinations) {
     return userUpComingDestinationsByName
 }
 
+function getPendingTripsForUser(trips, userId, destinations) {
+    const currentDate = new Date ("2022/06/12") 
+    const userPendingTrips = trips.filter(trip => {
+        return trip.userID === userId && trip.status === "pending" && trips.id === trips.id
+    })
+    const userPendingTripsConvertedDate = userPendingTrips.map(userPendingTrip => {
+        return {
+            date: new Date(userPendingTrip.date),
+            destinationID: userPendingTrip.destinationID,
+            duration: userPendingTrip.duration, 
+            travelers: userPendingTrip.travelers,
+        }
+    })
+    const pendingTripsForUser = userPendingTripsConvertedDate.filter(userPendingTripConvertedDate => {
+        return userPendingTripConvertedDate.date > currentDate
+    })  
+    // console.log("line 91:", pendingTripsForUser)
+    const pendingDestinationsForUser = pendingTripsForUser.reduce((accumulator, pendingTrip) => {
+        destinations.forEach(destination => {
+            if (destination.id === pendingTrip.destinationID) {
+                accumulator.push({
+                    date: pendingTrip.date,
+                    destination: destination.destination,
+                    duration: pendingTrip.duration,
+                    travelers: pendingTrip.travelers
+                });
+            }
+        });
+        return accumulator;
+    }, []);
+    // console.log("pendingDestinationsForUser", pendingDestinationsForUser)
+    return pendingDestinationsForUser
+}
+
+// function getPendingDestinations(pendingTripsForUser, destinations) {
+//     const destinationIDs = pendingTripsForUser.map(trip => {
+//         return trip.destinationID      
+//     })
+
+
+//     const userPendingDestinations = destinations.filter(destination => {
+//         return destinationIDs.includes(destination.id)
+//     })
+//     const userPendingDestinationsByName = userPendingDestinations.map(destination => {
+//         return destination.destination
+//     })
+//     return userPendingDestinationsByName
+// }
+
+
+// function getPendingDestinations(pendingTripsForUser, destinations) {
+//     const destinationIDs = pendingTripsForUser.map(trip => {
+//         return trip.destinationID      
+//     })
+
+//     const userPendingDestinations = destinations.filter(destination => {
+//         return destinationIDs.includes(destination.id)
+//     })
+//     const userPendingDestinationsByName = userPendingDestinations.map(destination => {
+//         return destination.destination
+//     })
+//     return userPendingDestinationsByName
+// }
+
+
 function calculateTotalSpentThisYear(trips, destinations, userId) {
     const startofYear = new Date ("2022/01/01") 
     const endofYear = new Date ("2022/12/31")
@@ -127,5 +174,7 @@ export {
     getDestinationsVisitedByUser,
     getUpcomingTripsForUser, 
     getDestinationsUserWillVisit,
-    calculateTotalSpentThisYear, 
+    getPendingTripsForUser,
+    // getPendingDestinations,   
+    calculateTotalSpentThisYear,    
 }

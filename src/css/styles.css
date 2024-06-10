@@ -1,7 +1,47 @@
+* {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
 body, html {
     height: 100%;
     padding: 0;
-    margin: 0; 
+    margin: 0;
+    background-color: #F1EFEC; 
+}
+
+.login-message,
+#login-form,
+.please-login {
+    text-align: center;
+}
+
+.your-trusted-partner-in-travel {
+    text-align: center;
+    font-style: italic;
+}
+
+.username-error-message {
+    font-style: bold; 
+    color: red;
+    font-size: 20px;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    margin-top: 20px;
+    height: 55vh; 
+    width: 55vw;
+    align-items: center;
+}
+
+header {
+    background-color: #DADDC5;
 }
 
 .welcome-message,
@@ -12,26 +52,75 @@ body, html {
 .main-wrapper {
     width: 100%;
 }
+
 .upcoming-trips-wrapper,
 .pending-trips-wrapper,
 .past-trips-wrapper {
-    border: 2px hotpink solid;
     display: flex;
+    justify-content: center;
     height: 100%;
     width: 100%;
+    margin-bottom: 20px; 
 }
 
 .upcoming-trips-header,
 .pending-trips-header,
-.past-trips-header,
-.book-a-trip-header {
+.past-trips-header {
     margin: 0; 
+    text-align: center;
+    font-weight: 300;
+}
+
+.upcoming-trips-container {
+    text-align: center;
+}
+
+#pending-trips-container {
     text-align: center;
 }
 
 #destinations-visited-container {
     max-width: 100%;
     font-size: medium; 
+    text-align: center;
+}
+
+.book-a-trip-wrapper {
+    border: 2px #283A2C solid;   
+}
+
+.book-a-trip-header {
+    margin-bottom: 10px; 
+    text-align: center;
+}
+ 
+.book-a-trip-info {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.book-a-trip {
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    gap: 10px; 
+}
+
+.book-a-trip-button,
+.calculate-trip-cost-button
+{
+    background-color: #283A2C;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+  }
+
+.calculate-trip-cost-button:disabled {
+    background-color: #D3D3D3; 
 }
 
 .hidden {
