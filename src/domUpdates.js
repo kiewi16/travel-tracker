@@ -65,7 +65,6 @@ function fetchUserData(username) {
     const totalSpentThisYear = calculateTotalSpentThisYear(trips, destinations, userId)
     updateMoneySpent(totalSpentThisYear)
     const tripsTakenByUser = getTripsTakenByUser(trips, userId)
-    console.log("trips taken by user:", tripsTakenByUser)
     const destinationsVisitedByUser = getDestinationsVisitedByUser(tripsTakenByUser, destinations)
     updateTripsTaken(destinationsVisitedByUser)
     const upcomingTripsForUser = getUpcomingTripsForUser(trips, userId)
@@ -74,8 +73,7 @@ function fetchUserData(username) {
 
     const pendingTripsForUser = getPendingTripsForUser(trips, userId)
     const userPendingDestinationsByName = getPendingDestinations(pendingTripsForUser, destinations)
-    updatePendingTrips(userPendingDestinationsByName, pendingTripsForUser)
- 
+    updatePendingTrips(userPendingDestinationsByName, pendingTripsForUser) 
     })
 }
 
@@ -91,8 +89,9 @@ function updateMoneySpent(totalSpentThisYear) {
     totalAmountSpentThisYear.innerText = `Total Amount Spent on Trips in 2022 (including upcoming trips in 2022): ${USDollar.format(totalSpentThisYear)}`
 }
 
-function updateUpcomingTrips(userUpcomingDestinationsByName, upcomingTripsForUser) {
+function updateUpcomingTrips(userUpcomingDestinationsByName) {
     const upcomingTripsContainer = document.querySelector('#upcoming-trips-container')
+    upcomingTripsContainer.innerHTML= ''
 
     if(userUpcomingDestinationsByName.length === 0) {
         const message = document.createElement('p')
@@ -100,14 +99,25 @@ function updateUpcomingTrips(userUpcomingDestinationsByName, upcomingTripsForUse
         upcomingTripsContainer.appendChild(message); 
     }
     userUpcomingDestinationsByName.forEach(userUpcomingDestination => {
-        upcomingTripsForUser.forEach(upcomingTrip => {
-            const tripDate = new Date(upcomingTrip.date)
+         const upcomingTripText = document.createElement('p')
+         upcomingTripText.innerText =`${userUpcomingDestination}`
+         upcomingTripsContainer.appendChild(upcomingTripText);           
+    })
+}
 
-            const formattedDate = `${tripDate.toLocaleString('en-US', {month: 'short'})} ${tripDate.getDate()}, ${tripDate.getFullYear()}`;
-            const upcomingTripText = document.createElement('p')
-            upcomingTripText.innerText =`${userUpcomingDestination} departing on ${formattedDate}`
-            upcomingTripsContainer.appendChild(upcomingTripText);
-        })          
+function updatePendingTrips(userPendingDestinationsByName) {
+    const pendingTripsContainer = document.getElementById('pending-trips-container')
+
+    if (userPendingDestinationsByName.length === 0) {
+        const message = document.createElement('p')
+        message.innerText = 'No pending trips'
+        pendingTripsContainer.appendChild(message); 
+    }
+
+    userPendingDestinationsByName.forEach(pendingDestination => {
+        const pendingTripText = document.createElement('p')
+        pendingTripText.innerText =`${pendingDestination.destination}`
+        pendingTripsContainer.appendChild(pendingTripText) 
     })
 }
 
@@ -126,7 +136,6 @@ function updateTripsTaken(destinationsVisitedByUser) {
     container.appendChild(destinationVisitedText)
     })
 }
-
 
 function bookATrip(event) {
     event.preventDefault()
@@ -161,8 +170,11 @@ function bookATrip(event) {
     console.log('usernameId:', typeof usernameId)
     
     postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray)
-    updatePendingTrips(destination, date)
 
+    updatePendingTripsAfterPost(usernameId, globalDestinationData)
+
+    const pendingTripsContainer = document.getElementById('pending-trips-container')
+    pendingTripsContainer.innerHTML = ''
     document.getElementById('book-a-trip-form').reset();
 }
 
@@ -192,24 +204,14 @@ function postTripData(usernameId, destinationId, numOfTravelers, date, duration,
   })
 }
 
-function updatePendingTrips(userPendingDestinationsByName, pendingTripsForUser) {
-    const pendingTripsContainer = document.getElementById('pending-trips-container')
-
-    if (userPendingDestinationsByName.length === 0) {
-        const message = document.createElement('p')
-        message.innerText = 'No pending trips'
-        pendingTripsContainer.appendChild(message); 
-    }
-
-    userPendingDestinationsByName.forEach(pendingDestination => {
-        pendingTripsForUser.forEach(pendingTrip => {
-            const pendingTripDate = new Date(pendingTrip.date)
-
-            const formattedDate = `${pendingTripDate.toLocaleString('en-US', {month: 'short'})} ${pendingTripDate.getDate()}, ${pendingTripDate.getFullYear()}`;
-            const pendingTripText = document.createElement('p')
-            pendingTripText.innerText =`${pendingDestination} departing on ${formattedDate}`
-            pendingTripsContainer.appendChild(pendingTripText);
-        })
-      
-    })
+function updatePendingTripsAfterPost(usernameId, globalDestinationData) {
+    setTimeout(() => fetchData('trips').then(e => {
+        const trips = e.trips
+        console.log("line 222:", trips)
+        console.log("trips after post:", trips)
+        const pendingTripsForUser = getPendingTripsForUser(trips, usernameId)
+        const userPendingDestinationsByName = getPendingDestinations(pendingTripsForUser, globalDestinationData)
+              
+        updatePendingTrips(userPendingDestinationsByName, pendingTripsForUser, trips)       
+    }), 1000)
 }
