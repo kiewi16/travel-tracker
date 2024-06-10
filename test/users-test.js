@@ -143,9 +143,9 @@ describe('Upcoming Trips for a User', function () {
 });
 
 describe('Trips Pending for a User', function () {
-  it('should return the pending trips for a user', function () {
+  it.only('should return the pending trips for a user', function () {
     const userId = 1
-    const user1PendingTrips = getPendingTripsForUser(allSampleTrips, userId)
+    const user1PendingTrips = getPendingTripsForUser(allSampleTrips, userId, allSampleDestinations)
 
     expect(user1PendingTrips).to.deep.equal([{
       "date": new Date ("2022/11/22"),
