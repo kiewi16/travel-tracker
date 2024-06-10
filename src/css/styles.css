@@ -24,6 +24,8 @@ body, html {
 
 .username-error-message {
     font-style: bold; 
+    color: red;
+    font-size: 20px;
 }
 
 .image-container {
@@ -105,7 +107,9 @@ header {
     gap: 10px; 
 }
 
-.book-a-trip button {
+.book-a-trip-button,
+.calculate-trip-cost-button
+{
     background-color: #283A2C;
     color: white;
     border: none;
@@ -114,6 +118,10 @@ header {
     margin-top: 10px;
     margin-bottom: 10px; 
   }
+
+.calculate-trip-cost-button:disabled {
+    background-color: #D3D3D3; 
+}
 
 .hidden {
     display: none;
