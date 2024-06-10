@@ -26,24 +26,6 @@ function getTripsTakenByUser(trips, userId) {
         return tripsTakenByUser
 }
 
-// function getDestinationsVisitedByUser(tripsTakenByUser, destinations) {
-//     if(tripsTakenByUser.length > 0) {
-//         const destinationIDs = tripsTakenByUser.map(trip => {
-//             return trip.destinationID
-//         })
-//         const userDestinations = destinations.filter(destination => {
-//             return destinationIDs.includes(destination.id)
-//         })
-//         const userDestinationsByName = userDestinations.map(destination => {
-//             return destination.destination
-//         })
-//         return userDestinationsByName
-//     } 
-//     else if(tripsTakenByUser.length === 0) {
-//         return 'You have not taken any prior trips!'
-//     }     
-// }
-
 function getDestinationsVisitedByUser(tripsTakenByUser, destinations) {
     const destinationIDs = tripsTakenByUser.map(trip => {
         return trip.destinationID
@@ -110,18 +92,29 @@ function getPendingTripsForUser(trips, userId) {
         return pendingTripsForUser
 }
 
-function getPendingDestinations(pendingTripsForUser, destinations) {
-    const destinationIDs = pendingTripsForUser.map(trip => {
-        return trip.destinationID      
-    })
-    const userPendingDestinations = destinations.filter(destination => {
-        return destinationIDs.includes(destination.id)
-    })
-    const userPendingDestinationsByName = userPendingDestinations.map(destination => {
-        return destination.destination
-    })
-    return userPendingDestinationsByName
-}
+// function getPendingDestinations(pendingTripsForUser, destinations) {
+//     // console.log("pending Trips for User:", pendingTripsForUser)
+//     const pendingTrips= pendingTripsForUser.map(trip => {
+//         return {
+//             destinationID: trip.destinationID,
+//             date: trip.date
+//         }     
+//     })
+//     const userPendingDestinations = destinations.reduce((accumulator, destination) => {
+//         pendingTrips.forEach(pendingTrip => {
+//             if(pendingTrip.destinationID === destination.id) {
+//                 accumulator.destination += destination.destination
+//                 accumulator.date += pendingTrip.date
+//             }         
+//         })
+//         return accumulator
+//     }, {destination: "", date: new Date 
+//     })
+//     // console.log("userPendingDestinations:", userPendingDestinations)
+//     let arrayUserPendingDestinations = []
+//     arrayUserPendingDestinations.push(userPendingDestinations)
+//     return arrayUserPendingDestinations
+// }
 
 function calculateTotalSpentThisYear(trips, destinations, userId) {
     const startofYear = new Date ("2022/01/01") 
