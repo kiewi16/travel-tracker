@@ -20,8 +20,11 @@ const totalAmountSpentThisYear = document.querySelector('.total-amount-spent-thi
 const bookTripButton = document.querySelector('#book-a-trip-button')
 const calculateTripCostButton = document.querySelector('#calculate-trip-cost')
 const errorMessage = document.querySelector('.error-message')
-// const destination = document.getElementById("destinations").value
-// const numOfTravelersInput = document.getElementById('number-of-travelers)
+const destinationInput = document.querySelector("#destinations")
+const numOfTravelersInput = document.querySelector('#number-of-travelers')
+const durationInput = document.querySelector('#duration')
+
+
 
 usernameInput.addEventListener('input', () => {
     const usernameInputId = usernameInput.value.split("r").pop()
@@ -45,13 +48,17 @@ usernameInput.addEventListener('input', () => {
 loginButton.addEventListener('click', authenticateLogin)
 bookTripButton.addEventListener('click', bookATrip)
 calculateTripCostButton.addEventListener('click', displayTripCost)
-// numberOfTravelersInput.addEventListener('input', validateInputs)
+destinationInput.addEventListener('input', validateInputs)
+numOfTravelersInput.addEventListener('input', validateInputs)
+durationInput.addEventListener('input', validateInputs)
 
-// function validateInputs() {
-// if(numberOfTravelers.input) {
-    // console.log("hello")
-// }
-// }
+
+function validateInputs() {
+if(destinationInput.value && numOfTravelersInput.value && durationInput.value) {
+    console.log("hello")
+    calculateTripCostButton.removeAttribute('disabled')
+}
+}
 
 
 function authenticateLogin(event) {
