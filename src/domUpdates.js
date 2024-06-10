@@ -24,8 +24,6 @@ const destinationInput = document.querySelector("#destinations")
 const numOfTravelersInput = document.querySelector('#number-of-travelers')
 const durationInput = document.querySelector('#duration')
 
-
-
 usernameInput.addEventListener('input', () => {
     const usernameInputId = usernameInput.value.split("r").pop()
     if(usernameInput.value.includes("traveler") && usernameInputId <= 50 && usernameInputId > 0) {
@@ -54,12 +52,15 @@ durationInput.addEventListener('input', validateInputs)
 
 
 function validateInputs() {
+    const calculateTripErrorMessage = document.querySelector('.calculate-trip-cost-error-message')
 if(destinationInput.value && numOfTravelersInput.value && durationInput.value) {
     console.log("hello")
+    calculateTripErrorMessage.innerText = ''
     calculateTripCostButton.removeAttribute('disabled')
+} else {
+    calculateTripErrorMessage.innerText = "please enter destination, number of travelers, and duration to calculate cost"
 }
 }
-
 
 function authenticateLogin(event) {
     event.preventDefault()
