@@ -92,29 +92,29 @@ function getPendingTripsForUser(trips, userId) {
         return pendingTripsForUser
 }
 
-// function getPendingDestinations(pendingTripsForUser, destinations) {
-//     // console.log("pending Trips for User:", pendingTripsForUser)
-//     const pendingTrips= pendingTripsForUser.map(trip => {
-//         return {
-//             destinationID: trip.destinationID,
-//             date: trip.date
-//         }     
-//     })
-//     const userPendingDestinations = destinations.reduce((accumulator, destination) => {
-//         pendingTrips.forEach(pendingTrip => {
-//             if(pendingTrip.destinationID === destination.id) {
-//                 accumulator.destination += destination.destination
-//                 accumulator.date += pendingTrip.date
-//             }         
-//         })
-//         return accumulator
-//     }, {destination: "", date: new Date 
-//     })
-//     // console.log("userPendingDestinations:", userPendingDestinations)
-//     let arrayUserPendingDestinations = []
-//     arrayUserPendingDestinations.push(userPendingDestinations)
-//     return arrayUserPendingDestinations
-// }
+function getPendingDestinations(pendingTripsForUser, destinations) {
+    // console.log("pending Trips for User:", pendingTripsForUser)
+    const pendingTrips= pendingTripsForUser.map(trip => {
+        return {
+            destinationID: trip.destinationID,
+            date: trip.date
+        }     
+    })
+    const userPendingDestinations = destinations.reduce((accumulator, destination) => {
+        pendingTrips.forEach(pendingTrip => {
+            if(pendingTrip.destinationID === destination.id) {
+                accumulator.destination += destination.destination
+                accumulator.date += pendingTrip.date
+            }         
+        })
+        return accumulator
+    }, {destination: "", date: new Date 
+    })
+    // console.log("userPendingDestinations:", userPendingDestinations)
+    let arrayUserPendingDestinations = []
+    arrayUserPendingDestinations.push(userPendingDestinations)
+    return arrayUserPendingDestinations
+}
 
 function calculateTotalSpentThisYear(trips, destinations, userId) {
     const startofYear = new Date ("2022/01/01") 
