@@ -72,9 +72,8 @@ function getDestinationsUserWillVisit(upcomingTripsForUser, destinations) {
     return userUpComingDestinationsByName
 }
 
-function getPendingTripsForUser(trips, userId) {
+function getPendingTripsForUser(trips, userId, destinations) {
     const currentDate = new Date ("2022/06/12") 
-    // console.log("trips:", trips)
     const userPendingTrips = trips.filter(trip => {
         return trip.userID === userId && trip.status === "pending" && trips.id === trips.id
     })
@@ -86,50 +85,57 @@ function getPendingTripsForUser(trips, userId) {
             travelers: userPendingTrip.travelers,
         }
     })
-    // console.log(userPendingTripsConvertedDate)
     const pendingTripsForUser = userPendingTripsConvertedDate.filter(userPendingTripConvertedDate => {
         return userPendingTripConvertedDate.date > currentDate
     })  
-        return pendingTripsForUser
+    // console.log("line 91:", pendingTripsForUser)
+    const pendingDestinationsForUser = pendingTripsForUser.reduce((accumulator, pendingTrip) => {
+        destinations.forEach(destination => {
+            if (destination.id === pendingTrip.destinationID) {
+                accumulator.push({
+                    date: pendingTrip.date,
+                    destination: destination.destination,
+                    duration: pendingTrip.duration,
+                    travelers: pendingTrip.travelers
+                });
+            }
+        });
+        return accumulator;
+    }, []);
+    // console.log("pendingDestinationsForUser", pendingDestinationsForUser)
+    return pendingDestinationsForUser
 }
 
-function getPendingDestinations(pendingTripsForUser, destinations) {
-    const destinationIDs = pendingTripsForUser.map(trip => {
-        return trip.destinationID      
-    })
-    const userPendingDestinations = destinations.filter(destination => {
-        return destinationIDs.includes(destination.id)
-    })
-    const userPendingDestinationsByName = userPendingDestinations.map(destination => {
-        return destination.destination
-    })
-    return userPendingDestinationsByName
-}
+// function getPendingDestinations(pendingTripsForUser, destinations) {
+//     const destinationIDs = pendingTripsForUser.map(trip => {
+//         return trip.destinationID      
+//     })
+
+
+//     const userPendingDestinations = destinations.filter(destination => {
+//         return destinationIDs.includes(destination.id)
+//     })
+//     const userPendingDestinationsByName = userPendingDestinations.map(destination => {
+//         return destination.destination
+//     })
+//     return userPendingDestinationsByName
+// }
 
 
 // function getPendingDestinations(pendingTripsForUser, destinations) {
-//     console.log("pending Trips for User:", pendingTripsForUser)
-//     const pendingTrips= pendingTripsForUser.map(trip => {
-//         return {
-//             destinationID: trip.destinationID,
-//             date: trip.date
-//         }     
+//     const destinationIDs = pendingTripsForUser.map(trip => {
+//         return trip.destinationID      
 //     })
-//     const userPendingDestinations = destinations.reduce((accumulator, destination) => {
-//         pendingTrips.forEach(pendingTrip => {
-//             if(pendingTrip.destinationID === destination.id) {
-//                 accumulator.destination += destination.destination
-//                 accumulator.date += pendingTrip.date
-//             }         
-//         })
-//         return accumulator
-//     }, {destination: "", date: ""})
-//     // console.log("userPendingDestinations:", userPendingDestinations)
-//     let arrayUserPendingDestinations = []
-//     arrayUserPendingDestinations.push(userPendingDestinations)
-//     console.log("line 117:", arrayUserPendingDestinations)
-//     return arrayUserPendingDestinations
+
+//     const userPendingDestinations = destinations.filter(destination => {
+//         return destinationIDs.includes(destination.id)
+//     })
+//     const userPendingDestinationsByName = userPendingDestinations.map(destination => {
+//         return destination.destination
+//     })
+//     return userPendingDestinationsByName
 // }
+
 
 function calculateTotalSpentThisYear(trips, destinations, userId) {
     const startofYear = new Date ("2022/01/01") 
@@ -169,6 +175,6 @@ export {
     getUpcomingTripsForUser, 
     getDestinationsUserWillVisit,
     getPendingTripsForUser,
-    getPendingDestinations,   
+    // getPendingDestinations,   
     calculateTotalSpentThisYear,    
 }
