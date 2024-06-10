@@ -86,12 +86,12 @@ function updateMoneySpent(totalSpentThisYear) {
         style: 'currency',
         currency: 'USD',
     });
-    totalAmountSpentThisYear.innerText = `Total Amount Spent on Trips in 2022 (including upcoming trips in 2022): ${USDollar.format(totalSpentThisYear)}`
+    totalAmountSpentThisYear.innerText = `Total Amount Spent on Trips in 2022: ${USDollar.format(totalSpentThisYear)}`
 }
 
 function updateUpcomingTrips(userUpcomingDestinationsByName) {
     const upcomingTripsContainer = document.querySelector('#upcoming-trips-container')
-    upcomingTripsContainer.innerHTML= ''
+    upcomingTripsContainer.classList.add('upcoming-trips-list')
 
     if(userUpcomingDestinationsByName.length === 0) {
         const message = document.createElement('p')
@@ -107,6 +107,7 @@ function updateUpcomingTrips(userUpcomingDestinationsByName) {
 
 function updatePendingTrips(userPendingDestinationsByName) {
     const pendingTripsContainer = document.getElementById('pending-trips-container')
+    pendingTripsContainer.classList.add('pending-trips-list')
 
     if (userPendingDestinationsByName.length === 0) {
         const message = document.createElement('p')
