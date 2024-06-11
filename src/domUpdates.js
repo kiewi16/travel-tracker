@@ -36,13 +36,21 @@ destinationInput.addEventListener('input', () => {
     validateInputs()
     enableBookTripButton()
 })
-numOfTravelersInput.addEventListener('input', validateInputs)
-durationInput.addEventListener('input', validateInputs)
+numOfTravelersInput.addEventListener('input', () => {
+    validateInputs()
+    enableBookTripButton()
+})
+durationInput.addEventListener('input', () => {
+    validateInputs()
+    enableBookTripButton()
+})
+// numOfTravelersInput.addEventListener('input', validateInputs)
+// durationInput.addEventListener('input', validateInputs)
 bookTripButton.addEventListener('click', bookATrip)
 
 function validateInputs() {
     const calculateTripErrorMessage = document.querySelector('.calculate-trip-cost-error-message')
-if(destinationInput.value && numOfTravelersInput.value && durationInput.value) {
+if(destinationInput.value && numOfTravelersInput.value > 0 && durationInput.value > 0) {
     calculateTripErrorMessage.innerText = ''
     calculateTripCostButton.removeAttribute('disabled')
 } else {
@@ -51,7 +59,7 @@ if(destinationInput.value && numOfTravelersInput.value && durationInput.value) {
 }
 
 function enableBookTripButton() {
-    if(destinationInput.value)
+    if(destinationInput.value && numOfTravelersInput.value > 0 && durationInput.value > 0)
         bookTripButton.removeAttribute('disabled')
 }
 
@@ -179,9 +187,12 @@ function bookATrip(event) {
 
     if(destination && numOfTravelers && duration && date) {
         document.getElementById('book-a-trip-form').reset()
+        bookTripButton.setAttribute('disabled', true)
+        calculateTripCostButton.setAttribute('disabled', true)    
         
     }
-    document.getElementById('trip-cost-display').innerText = ''       
+    document.getElementById('trip-cost-display').innerText = ''
+           
 }
 
 function displayTripCost(event) {
@@ -231,6 +242,8 @@ function updatePendingTripsAfterPost(usernameId, globalDestinationData) {
         pendingTripsContainer.innerHTML = ""
        
         updatePendingTrips(pendingTripsForUser)
-        document.querySelector('.error-message').innerText = ''       
+        document.querySelector('.error-message').innerText = ''
+        
+
     }), 1000)
 }
