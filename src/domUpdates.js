@@ -214,7 +214,7 @@ function updatePendingTripsAfterPost(usernameId, globalDestinationData) {
         const trips = e.trips
         const pendingTripsForUser = getPendingTripsForUser(trips, usernameId, globalDestinationData)
        
-        alert("Your trip is pending travel agent approval.")
+        // alert("Your trip is pending travel agent approval.")
         const pendingTripsContainer = document.getElementById('pending-trips-container')
         pendingTripsContainer.innerHTML = ""
        
