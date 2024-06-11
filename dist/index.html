@@ -9,10 +9,10 @@
 </head>
 <body>
   <main>
-  <div class="login-form-wrapper" tabindex="0">
-    <h1 class="login-message">Welcome to Travel Tracker!</h1>
-    <h2 class="your-trusted-partner-in-travel">Your Trusted Partner In Travel</h2>
-    <p class="please-login">Please Log In</p>
+  <div class="login-form-wrapper">
+    <h1 class="login-message" tabindex="0">Welcome to Travel Tracker!</h1>
+    <h2 class="your-trusted-partner-in-travel" tabindex="0">Your Trusted Partner In Travel</h2>
+    <p class="please-login" tabindex="0">Please Log In</p>
     <form id="login-form">
       <label for="username">Username:</label>
       <input type="text" id="username" placeholder="username" aria-required="true">
@@ -27,26 +27,26 @@
    </div>
     <section class="main-wrapper" hidden>
       <header>
-        <h1 class="welcome-message">Welcome, User!</h1>
-        <p class="current-date">Today is June 12, 2022</p>
-        <p class="total-amount-spent-this-year">Total Amount Spent on Trips This Year:</p> 
+        <h1 class="welcome-message" tabindex="0">Welcome, User!</h1>
+        <p class="current-date" tabindex="0">Today is June 12, 2022</p>
+        <p class="total-amount-spent-this-year" tabindex="0">Total Amount Spent on Trips This Year:</p> 
       </header>
-      <h2 class="upcoming-trips-header">Upcoming Trips</h2>
+      <h2 class="upcoming-trips-header" tabindex="0">Upcoming Trips</h2>
       <section class="upcoming-trips-wrapper">    
-        <div id="upcoming-trips-container"></div>
+        <div id="upcoming-trips-container" tabindex="0"></div>
       </section>
-      <h2 class="pending-trips-header">Pending Trips</h2>
+      <h2 class="pending-trips-header" tabindex="0">Pending Trips</h2>
       <section class="pending-trips-wrapper"> 
-        <div id="pending-trips-container"></div>
+        <div id="pending-trips-container" tabindex="0"></div>
       </section>
-      <h2 class="past-trips-header">Where You've Traveled</h2>
+      <h2 class="past-trips-header" tabindex="0">Where You've Traveled</h2>
       <section class="past-trips-wrapper">
-        <div id="destinations-visited-container"></div>  
+        <div id="destinations-visited-container" tabindex="0"></div>  
       </section>
       <section class="book-a-trip-wrapper">   
-      <h2 class="book-a-trip-header">Book A Trip With Us!</h2>
-      <p class="book-a-trip-info">For a small fee, we will curate a meticiously planned and unique itinerary to 1 of 5 international destinations.</p>
-      <p class="info-needed-to-book-trip">Please select a destination and provide the number of travelers, trip duration, and departure date. We'll take care of the rest!</p>
+      <h2 class="book-a-trip-header" tabindex="0">Book A Trip With Us!</h2>
+      <p class="book-a-trip-info" tabindex="0">For a small fee, we will curate a meticiously planned and unique itinerary to 1 of 5 international destinations.</p>
+      <p class="info-needed-to-book-trip" tabindex="0">Please select a destination and provide the number of travelers, trip duration, and departure date. We'll take care of the rest!</p>
         <div class="book-a-trip">
           <form id="book-a-trip-form">
             <label for="destinations">Destinations:</label>
@@ -67,7 +67,8 @@
             <p id="trip-cost-display"></p>
             <button type="submit" class="calculate-trip-cost-button" id="calculate-trip-cost" disabled="disabled">Calculate Trip Cost</button>
             <button type="submit" class="book-a-trip-button" id="book-a-trip-button" disabled="disabled">Book My Trip!</button>
-            <p class="calculate-trip-cost-error-message"></p>
+          <div id="upcoming-trips-container"></div>
+          <p class="calculate-trip-cost-error-message"></p>
             <p class="error-message"></p>
             <p class="thank-you-message"></p>
           </form>
