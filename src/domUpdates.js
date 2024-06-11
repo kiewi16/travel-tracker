@@ -31,11 +31,14 @@ usernameInput.addEventListener('input', () => {
 
 loginButton.addEventListener('click', authenticateLogin)
 calculateTripCostButton.addEventListener('click', displayTripCost)
-destinationInput.addEventListener('input', validateInputs)
+// destinationInput.addEventListener('input', validateInputs)
+destinationInput.addEventListener('input', () => {
+    validateInputs()
+    enableBookTripButton()
+})
 numOfTravelersInput.addEventListener('input', validateInputs)
 durationInput.addEventListener('input', validateInputs)
 bookTripButton.addEventListener('click', bookATrip)
-
 
 function validateInputs() {
     const calculateTripErrorMessage = document.querySelector('.calculate-trip-cost-error-message')
@@ -45,6 +48,11 @@ if(destinationInput.value && numOfTravelersInput.value && durationInput.value) {
 } else {
     calculateTripErrorMessage.innerText = "please enter destination, number of travelers, and duration to calculate cost"
 }
+}
+
+function enableBookTripButton() {
+    if(destinationInput.value)
+        bookTripButton.removeAttribute('disabled')
 }
 
 function authenticateLogin(event) {
@@ -158,18 +166,22 @@ function bookATrip(event) {
     let numOfTravelers = +document.getElementById("number-of-travelers").value
     let date = document.getElementById("date").value
     let duration = +document.getElementById("duration").value   
-    let suggestedActivities = document.getElementById("suggested-activities")
-    let suggestedActivitiesArray = Array.from(suggestedActivities.selectedOptions, option => option.value)
+    // let suggestedActivities = document.getElementById("suggested-activities")
+    // let suggestedActivitiesArray = Array.from(suggestedActivities.selectedOptions, option => option.value)
+    // console.log(typeof suggestedActivitiesArray)
      
     let username = document.querySelector('#username').value
     let usernameId = +username.split("r").pop() 
     
-    postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray)
+    postTripData(usernameId, destinationId, numOfTravelers, date, duration)
 
     updatePendingTripsAfterPost(usernameId, globalDestinationData)
 
-    document.getElementById('book-a-trip-form').reset()
-    document.getElementById('trip-cost-display').innerText = ''
+    if(destination && numOfTravelers && duration && date) {
+        document.getElementById('book-a-trip-form').reset()
+        
+    }
+    document.getElementById('trip-cost-display').innerText = ''       
 }
 
 function displayTripCost(event) {
@@ -183,7 +195,7 @@ function displayTripCost(event) {
     return tripCost
 }
 
-function postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray) {
+function postTripData(usernameId, destinationId, numOfTravelers, date, duration) {
     let formattedDate = date.split("-").join("/")
     const uniqueTripId = Date.now()
     fetch('http://localhost:3001/api/v1/trips',{
@@ -196,7 +208,7 @@ function postTripData(usernameId, destinationId, numOfTravelers, date, duration,
       date: formattedDate,
       duration: duration,
       status: "pending",
-      suggestedActivities: suggestedActivitiesArray
+      suggestedActivities: ["hike, nap"]
     }),
     headers: {'Content-Type': 'application/json'}
 }).then(response => {
@@ -218,6 +230,7 @@ function updatePendingTripsAfterPost(usernameId, globalDestinationData) {
         const pendingTripsContainer = document.getElementById('pending-trips-container')
         pendingTripsContainer.innerHTML = ""
        
-        updatePendingTrips(pendingTripsForUser)       
+        updatePendingTrips(pendingTripsForUser)
+        document.querySelector('.error-message').innerText = ''       
     }), 1000)
 }
