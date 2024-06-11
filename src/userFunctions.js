@@ -143,7 +143,6 @@ export {
     getDestinationsVisitedByUser,
     getUpcomingTripsForUser, 
     getDestinationsUserWillVisit,
-    getPendingTripsForUser,
-    // getPendingDestinations,   
+    getPendingTripsForUser,  
     calculateTotalSpentThisYear,    
 }
