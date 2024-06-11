@@ -122,19 +122,7 @@ function getPendingTripsForUser(trips, userId, destinations) {
 // }
 
 
-// function getPendingDestinations(pendingTripsForUser, destinations) {
-//     const destinationIDs = pendingTripsForUser.map(trip => {
-//         return trip.destinationID      
-//     })
 
-//     const userPendingDestinations = destinations.filter(destination => {
-//         return destinationIDs.includes(destination.id)
-//     })
-//     const userPendingDestinationsByName = userPendingDestinations.map(destination => {
-//         return destination.destination
-//     })
-//     return userPendingDestinationsByName
-// }
 
 
 function calculateTotalSpentThisYear(trips, destinations, userId) {
