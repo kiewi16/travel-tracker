@@ -1,13 +1,7 @@
 import { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, getUpcomingTripsForUser, getDestinationsUserWillVisit, getPendingTripsForUser, calculateTotalSpentThisYear } from '../src/userFunctions.js'
 import { getDestinationId, calculateTripCost } from './bookTripFunctions.js'
 import { fetchData } from './apiCalls.js'
-// import usersSampleDataset from './data/users-sample-test-data.js'
-// import tripsSampleDataset from './data/trips-sample-test-data.js'
-// import destinationsSampleDataset from './data/destinations-sample-test-data.js'
 
-// const users = usersSampleDataset.usersSampleDataset
-// const trips = tripsSampleDataset.tripsSampleDataset
-// const destinations = destinationsSampleDataset.destinationsSampleDataset
 let globalDestinationData = null; 
 
 const usernameInput = document.querySelector('#username')
@@ -46,7 +40,6 @@ bookTripButton.addEventListener('click', bookATrip)
 function validateInputs() {
     const calculateTripErrorMessage = document.querySelector('.calculate-trip-cost-error-message')
 if(destinationInput.value && numOfTravelersInput.value && durationInput.value) {
-    console.log("hello")
     calculateTripErrorMessage.innerText = ''
     calculateTripCostButton.removeAttribute('disabled')
 } else {
@@ -74,15 +67,15 @@ function authenticateLogin(event) {
 function fetchUserData(username) {
     Promise.all([fetchData('travelers'), fetchData('trips'), fetchData('destinations')]).then(e => {
     const user = getUserData(e[0].travelers, username)
-    console.log('user:', user)
+    // console.log('user:', user)
     const userId = user.id
-    console.log("userId:", userId)
+    // console.log("userId:", userId)
     updateWelcomeMessage(user)
     const trips = e[1].trips
-    console.log("trips before post:", trips)
+    // console.log("trips", trips)
     const destinations = e[2].destinations
     globalDestinationData = destinations
-    console.log("destinations:", destinations)
+    // console.log("destinations:", destinations)
     const totalSpentThisYear = calculateTotalSpentThisYear(trips, destinations, userId)
     updateMoneySpent(totalSpentThisYear)
     const tripsTakenByUser = getTripsTakenByUser(trips, userId)
@@ -138,7 +131,7 @@ function updatePendingTrips(pendingTripsForUser) {
             pendingTripText.innerText =`${pendingTrip.travelers} people traveling to ${pendingTrip.destination} for ${pendingTrip.duration} nights on ${pendingTrip.date}`
             pendingTripsContainer.appendChild(pendingTripText) 
         })
-    } 
+} 
 
 function updateTripsTaken(destinationsVisitedByUser) {
     const container = document.querySelector('#destinations-visited-container')
@@ -159,35 +152,17 @@ function updateTripsTaken(destinationsVisitedByUser) {
 function bookATrip(event) {
     event.preventDefault()
 
-    // let id = +document.getElementById("id").value
-    // let userId = +document.getElementById("user-id").value
-    // let destinationId = +document.getElementById("destinations").value
     let destination = document.getElementById("destinations").value
     let destinationId = getDestinationId(destination, globalDestinationData)
-    console.log("destinationId:", destinationId)
+    // console.log("destinationId:", destinationId)
     let numOfTravelers = +document.getElementById("number-of-travelers").value
     let date = document.getElementById("date").value
-    let duration = +document.getElementById("duration").value
-    // let tripCost = calculateTripCost(destinationId, globalDestinationData, numOfTravelers, duration)
-    // console.log("trip cost:", tripCost)
-    // displayTripCost(tripCost)
-    // let status = document.getElementById("status").value
+    let duration = +document.getElementById("duration").value   
     let suggestedActivities = document.getElementById("suggested-activities")
     let suggestedActivitiesArray = Array.from(suggestedActivities.selectedOptions, option => option.value)
      
-    // console.log("idInput:", typeof id)
-    // console.log("userIdInput:", typeof userId)
-    // console.log("destinations:", typeof destinationId)
-    // console.log("number-of-travelers:", typeof numOfTravelers)
-    // console.log("date:", typeof date)
-    // console.log("duration:", typeof duration)
-    // console.log("status:", typeof status)
-    // console.log("suggestedActivitiesArray:", suggestedActivitiesArray)
-    let username = document.querySelector('#username').value;
-    // console.log("username:", username)
-    let usernameId = +username.split("r").pop();
-    // console.log('usernameId:', typeof usernameId)
-    
+    let username = document.querySelector('#username').value
+    let usernameId = +username.split("r").pop() 
     
     postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray)
 
@@ -238,7 +213,7 @@ function updatePendingTripsAfterPost(usernameId, globalDestinationData) {
     setTimeout(() => fetchData('trips').then(e => {
         const trips = e.trips
         const pendingTripsForUser = getPendingTripsForUser(trips, usernameId, globalDestinationData)
-        // const userPendingDestinationsByName = getPendingDestinations(pendingTripsForUser, globalDestinationData)
+       
         alert("Your trip is pending travel agent approval.")
         const pendingTripsContainer = document.getElementById('pending-trips-container')
         pendingTripsContainer.innerHTML = ""

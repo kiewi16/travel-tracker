@@ -18,10 +18,8 @@
       <input type="text" id="username" placeholder="username" required>
       <label for="password">Password:</label>
       <input type="text" id="password" placeholder="password" required>
-      <!-- <p id="password-error-message" class="password-error-message" hidden>Please enter a valid password.</p> -->
       <button type="submit" id="login-button" disabled>Log In</button>
-      <p id="username-error-message" class="username-error-message" hidden>Please enter a valid username</p>
-    
+      <p id="username-error-message" class="username-error-message" hidden>Please enter a valid username</p>   
     </form>
     <div class="image-container">
       <img src='./images/priscilla-du-preez-EFoH8YajQuA-unsplash.jpg' alt="travel the world spelled out using scrabble tiles">
@@ -59,9 +57,9 @@
               <option value="Madrid, Spain">Madrid, Spain</option>
             </select> 
             <label for="number-of-travelers">Number of Travelers:</label>
-            <input type="number" id="number-of-travelers" placeholder="number of travelers" required>
+            <input type="number" id="number-of-travelers" min= 1 placeholder="number of travelers" required>
             <label for="duration">Duration in Days:</label>
-            <input type="number" id="duration" placeholder="duration in days" aria-required="Enter a duration"> 
+            <input type="number" id="duration" min=1 placeholder="duration in days" aria-required="Enter a duration"> 
             <label for="date">Date:</label>
             <input type="date" id="date" placeholder="date" min="2022-06-12" aria-required="Enter a valid date">
             <label for="suggested-activities">Suggested Activities:</label>
