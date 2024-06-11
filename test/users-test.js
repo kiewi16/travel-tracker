@@ -67,7 +67,7 @@ describe('Return Trips a User has Taken', function(){
       "travelers": 2
     }]);
   });
-  it('should return nothing if a user has no past trips', function (){
+  it('should return an empty array if a user has no past trips', function (){
     const userId = 1
     const user1Trips = getTripsTakenByUser(allSampleTrips, userId);
 
@@ -119,7 +119,7 @@ describe('Upcoming Trips for a User', function () {
       "travelers": 1,
     }]); 
   });
-  it('should return nothing if a user has no upcoming trips', function (){
+  it('should return an empty array if a user has no upcoming trips', function (){
     const userId = 3
     const user3UpcomingTrips = getUpcomingTripsForUser(allSampleTrips, userId)
 
@@ -165,7 +165,7 @@ describe('Trips Pending for a User', function () {
       "travelers": 4,
     }]);
   });
-  it('should return nothing if a user has no pending trips', function () {
+  it('should return an empty array if a user has no pending trips', function () {
     const userId = 9
     const user9PendingTrips = getPendingTripsForUser(allSampleTrips, userId. allSampleDestinations)
 

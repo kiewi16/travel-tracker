@@ -45,7 +45,8 @@ header {
 }
 
 .welcome-message,
-.total-amount-spent-this-year { 
+.total-amount-spent-this-year,
+.current-date { 
     text-align: center;
 }
 
@@ -71,7 +72,7 @@ header {
     font-weight: 300;
 }
 
-.upcoming-trips-container {
+#upcoming-trips-container {
     text-align: center;
 }
 
@@ -96,7 +97,14 @@ header {
  
 .book-a-trip-info {
     text-align: center;
-    margin-bottom: 0;
+    margin-bottom: 20px;
+    font-size: 18px; 
+}
+
+.info-needed-to-book-trip {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 350; 
 }
 
 .book-a-trip {
@@ -117,10 +125,22 @@ header {
     cursor: pointer;
     margin-top: 10px;
     margin-bottom: 10px; 
-  }
+}
 
+.book-a-trip-button:disabled,
 .calculate-trip-cost-button:disabled {
     background-color: #D3D3D3; 
+}
+
+#trip-cost-display,
+.calculate-trip-cost-error-message,
+.error-message {
+    color: red;
+    font-size: 20px;
+}
+
+.thank-you-message {
+    font-size: 20px;
 }
 
 .hidden {

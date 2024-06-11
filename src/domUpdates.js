@@ -17,6 +17,7 @@ const errorMessage = document.querySelector('.error-message')
 const destinationInput = document.querySelector("#destinations")
 const numOfTravelersInput = document.querySelector('#number-of-travelers')
 const durationInput = document.querySelector('#duration')
+const dateInput = document.querySelector('#date')
 
 usernameInput.addEventListener('input', () => {
     const usernameInputId = usernameInput.value.split("r").pop()
@@ -31,20 +32,42 @@ usernameInput.addEventListener('input', () => {
 
 loginButton.addEventListener('click', authenticateLogin)
 calculateTripCostButton.addEventListener('click', displayTripCost)
-destinationInput.addEventListener('input', validateInputs)
-numOfTravelersInput.addEventListener('input', validateInputs)
-durationInput.addEventListener('input', validateInputs)
-bookTripButton.addEventListener('click', bookATrip)
+destinationInput.addEventListener('input', () => {
+    validateInputs()
+    enableBookTripButton()
+})
 
+numOfTravelersInput.addEventListener('input', () => {
+    validateInputs()
+    enableBookTripButton()
+})
+
+durationInput.addEventListener('input', () => {
+    validateInputs()
+    enableBookTripButton()
+})
+
+dateInput.addEventListener('input', enableBookTripButton)
+
+bookTripButton.addEventListener('click', bookATrip)
 
 function validateInputs() {
     const calculateTripErrorMessage = document.querySelector('.calculate-trip-cost-error-message')
-if(destinationInput.value && numOfTravelersInput.value && durationInput.value) {
+if(destinationInput.value && numOfTravelersInput.value > 0 && durationInput.value > 0) {
     calculateTripErrorMessage.innerText = ''
     calculateTripCostButton.removeAttribute('disabled')
 } else {
     calculateTripErrorMessage.innerText = "please enter destination, number of travelers, and duration to calculate cost"
 }
+}
+
+function enableBookTripButton() {
+    if(destinationInput.value && numOfTravelersInput.value > 0 && durationInput.value > 0 && dateInput.value) {
+        bookTripButton.removeAttribute('disabled')
+        errorMessage.innerText = ''
+    } else {
+        errorMessage.innerText = 'please complete all fields to book your trip'
+    }       
 }
 
 function authenticateLogin(event) {
@@ -87,7 +110,7 @@ function fetchUserData(username) {
 
     const pendingTripsForUser = getPendingTripsForUser(trips, userId, destinations)
     updatePendingTrips(pendingTripsForUser) 
-    })
+    }).catch(err => alert('Could not get user data. Please try again later.'))
 }
 
 function updateWelcomeMessage(user) {
@@ -154,22 +177,25 @@ function bookATrip(event) {
 
     let destination = document.getElementById("destinations").value
     let destinationId = getDestinationId(destination, globalDestinationData)
-    // console.log("destinationId:", destinationId)
     let numOfTravelers = +document.getElementById("number-of-travelers").value
     let date = document.getElementById("date").value
-    let duration = +document.getElementById("duration").value   
-    let suggestedActivities = document.getElementById("suggested-activities")
-    let suggestedActivitiesArray = Array.from(suggestedActivities.selectedOptions, option => option.value)
-     
+    let duration = +document.getElementById("duration").value    
+    
     let username = document.querySelector('#username').value
     let usernameId = +username.split("r").pop() 
     
-    postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray)
+    postTripData(usernameId, destinationId, numOfTravelers, date, duration)
 
     updatePendingTripsAfterPost(usernameId, globalDestinationData)
 
-    document.getElementById('book-a-trip-form').reset()
+    if(destination && numOfTravelers && duration && date) {
+        document.getElementById('book-a-trip-form').reset()
+        bookTripButton.setAttribute('disabled', true)
+        calculateTripCostButton.setAttribute('disabled', true)            
+    }
     document.getElementById('trip-cost-display').innerText = ''
+    document.querySelector('.thank-you-message').innerText = "Thank you for booking with Travel Tracker. Your trip is pending travel agent approval."
+               
 }
 
 function displayTripCost(event) {
@@ -183,7 +209,7 @@ function displayTripCost(event) {
     return tripCost
 }
 
-function postTripData(usernameId, destinationId, numOfTravelers, date, duration, suggestedActivitiesArray) {
+function postTripData(usernameId, destinationId, numOfTravelers, date, duration) {
     let formattedDate = date.split("-").join("/")
     const uniqueTripId = Date.now()
     fetch('http://localhost:3001/api/v1/trips',{
@@ -196,12 +222,12 @@ function postTripData(usernameId, destinationId, numOfTravelers, date, duration,
       date: formattedDate,
       duration: duration,
       status: "pending",
-      suggestedActivities: suggestedActivitiesArray
+      suggestedActivities: ["hike, nap"]
     }),
     headers: {'Content-Type': 'application/json'}
 }).then(response => {
     if(!response.ok) {
-        throw new Error(`please fill out all fields before form submittal`)
+        throw new Error(`${response.status}`)
     } else {
         return response.json()
     }
@@ -214,10 +240,12 @@ function updatePendingTripsAfterPost(usernameId, globalDestinationData) {
         const trips = e.trips
         const pendingTripsForUser = getPendingTripsForUser(trips, usernameId, globalDestinationData)
        
-        alert("Your trip is pending travel agent approval.")
         const pendingTripsContainer = document.getElementById('pending-trips-container')
         pendingTripsContainer.innerHTML = ""
        
-        updatePendingTrips(pendingTripsForUser)       
-    }), 1000)
+        updatePendingTrips(pendingTripsForUser)
+        document.querySelector('.error-message').innerText = ''
+        document.querySelector('.thank-you-message').innerText = ''     
+
+    }), 2000)
 }
