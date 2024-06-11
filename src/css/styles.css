@@ -45,7 +45,8 @@ header {
 }
 
 .welcome-message,
-.total-amount-spent-this-year { 
+.total-amount-spent-this-year,
+.current-date { 
     text-align: center;
 }
 
@@ -135,6 +136,10 @@ header {
 .calculate-trip-cost-error-message,
 .error-message {
     color: red;
+    font-size: 20px;
+}
+
+.thank-you-message {
     font-size: 20px;
 }
 
