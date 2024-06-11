@@ -100,6 +100,12 @@ header {
     font-size: 18px; 
 }
 
+.info-needed-to-book-trip {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 350; 
+}
+
 .book-a-trip {
     display: flex; 
     flex-direction: column;
