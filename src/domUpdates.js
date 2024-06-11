@@ -95,10 +95,10 @@ function fetchUserData(username) {
     // console.log("userId:", userId)
     updateWelcomeMessage(user)
     const trips = e[1].trips
-    console.log("trips", trips)
+    // console.log("trips", trips)
     const destinations = e[2].destinations
     globalDestinationData = destinations
-    console.log("destinations:", destinations)
+    // console.log("destinations:", destinations)
     const totalSpentThisYear = calculateTotalSpentThisYear(trips, destinations, userId)
     updateMoneySpent(totalSpentThisYear)
     const tripsTakenByUser = getTripsTakenByUser(trips, userId)
@@ -177,7 +177,6 @@ function bookATrip(event) {
 
     let destination = document.getElementById("destinations").value
     let destinationId = getDestinationId(destination, globalDestinationData)
-    // console.log("destinationId:", destinationId)
     let numOfTravelers = +document.getElementById("number-of-travelers").value
     let date = document.getElementById("date").value
     let duration = +document.getElementById("duration").value    
@@ -241,7 +240,6 @@ function updatePendingTripsAfterPost(usernameId, globalDestinationData) {
         const trips = e.trips
         const pendingTripsForUser = getPendingTripsForUser(trips, usernameId, globalDestinationData)
        
-        // alert("Your trip is pending travel agent approval.")
         const pendingTripsContainer = document.getElementById('pending-trips-container')
         pendingTripsContainer.innerHTML = ""
        
