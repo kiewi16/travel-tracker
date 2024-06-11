@@ -118,8 +118,9 @@ header {
     cursor: pointer;
     margin-top: 10px;
     margin-bottom: 10px; 
-  }
+}
 
+.book-a-trip-button:disabled,
 .calculate-trip-cost-button:disabled {
     background-color: #D3D3D3; 
 }
