@@ -22,7 +22,7 @@ function getTripsTakenByUser(trips, userId) {
     })
     const tripsTakenByUser = userTripsConvertedDate.filter(userTripConvertedDate => {
         return userTripConvertedDate.date < currentDate
-        })
+    })
         return tripsTakenByUser
 }
 
