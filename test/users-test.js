@@ -3,7 +3,7 @@ const expect = chai.expect;
 import usersSampleDataset from '../src/data/users-sample-test-data.js';
 import tripsSampleDataset from '../src/data/trips-sample-test-data.js';
 import destinationsSampleDataset from '../src/data/destinations-sample-test-data.js'; 
-const { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, getUpcomingTripsForUser, getDestinationsUserWillVisit, getPendingTripsForUser, getPendingDestinations, calculateTotalSpentThisYear, } = require('../src/userFunctions.js')
+const { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, getUpcomingTripsForUser, getDestinationsUserWillVisit, getPendingTripsForUser, calculateTotalSpentThisYear } = require('../src/userFunctions.js')
 const allSampleUsers = usersSampleDataset.usersSampleDataset;
 const allSampleTrips = tripsSampleDataset.tripsSampleDataset; 
 const allSampleDestinations = destinationsSampleDataset.destinationsSampleDataset; 
