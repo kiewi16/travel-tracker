@@ -106,25 +106,6 @@ function getPendingTripsForUser(trips, userId, destinations) {
     return pendingDestinationsForUser
 }
 
-// function getPendingDestinations(pendingTripsForUser, destinations) {
-//     const destinationIDs = pendingTripsForUser.map(trip => {
-//         return trip.destinationID      
-//     })
-
-
-//     const userPendingDestinations = destinations.filter(destination => {
-//         return destinationIDs.includes(destination.id)
-//     })
-//     const userPendingDestinationsByName = userPendingDestinations.map(destination => {
-//         return destination.destination
-//     })
-//     return userPendingDestinationsByName
-// }
-
-
-
-
-
 function calculateTotalSpentThisYear(trips, destinations, userId) {
     const startofYear = new Date ("2022/01/01") 
     const endofYear = new Date ("2022/12/31")
