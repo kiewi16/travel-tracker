@@ -88,7 +88,7 @@ function getPendingTripsForUser(trips, userId, destinations) {
     const pendingTripsForUser = userPendingTripsConvertedDate.filter(userPendingTripConvertedDate => {
         return userPendingTripConvertedDate.date > currentDate
     })  
-    // console.log("line 91:", pendingTripsForUser)
+    
     const pendingDestinationsForUser = pendingTripsForUser.reduce((accumulator, pendingTrip) => {
         destinations.forEach(destination => {
             if (destination.id === pendingTrip.destinationID) {
@@ -102,7 +102,7 @@ function getPendingTripsForUser(trips, userId, destinations) {
         });
         return accumulator;
     }, []);
-    // console.log("pendingDestinationsForUser", pendingDestinationsForUser)
+    
     return pendingDestinationsForUser
 }
 
