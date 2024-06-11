@@ -1,13 +1,7 @@
 import { getUserData, getTripsTakenByUser, getDestinationsVisitedByUser, getUpcomingTripsForUser, getDestinationsUserWillVisit, getPendingTripsForUser, calculateTotalSpentThisYear } from '../src/userFunctions.js'
 import { getDestinationId, calculateTripCost } from './bookTripFunctions.js'
 import { fetchData } from './apiCalls.js'
-// import usersSampleDataset from './data/users-sample-test-data.js'
-// import tripsSampleDataset from './data/trips-sample-test-data.js'
-// import destinationsSampleDataset from './data/destinations-sample-test-data.js'
 
-// const users = usersSampleDataset.usersSampleDataset
-// const trips = tripsSampleDataset.tripsSampleDataset
-// const destinations = destinationsSampleDataset.destinationsSampleDataset
 let globalDestinationData = null; 
 
 const usernameInput = document.querySelector('#username')
