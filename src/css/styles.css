@@ -71,7 +71,7 @@ header {
     font-weight: 300;
 }
 
-.upcoming-trips-container {
+#upcoming-trips-container {
     text-align: center;
 }
 
@@ -97,6 +97,7 @@ header {
 .book-a-trip-info {
     text-align: center;
     margin-bottom: 0;
+    font-size: 18px; 
 }
 
 .book-a-trip {
@@ -121,6 +122,13 @@ header {
 
 .calculate-trip-cost-button:disabled {
     background-color: #D3D3D3; 
+}
+
+#trip-cost-display,
+.calculate-trip-cost-error-message,
+.error-message {
+    color: red;
+    font-size: 20px;
 }
 
 .hidden {
