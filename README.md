@@ -38,6 +38,10 @@ Travel Tracker is an application designed to create an easy travel planning expe
 JavaScript, Mocha, Chai, Webpack, HTML, and CSS 
 
 # Screenshot of Application 
+![Screenshot 2024-06-11 at 7 16 22 PM](https://github.com/kiewi16/travel-tracker/assets/150177522/5acb63d5-c81f-43e8-919b-9c2b3f33cac8)
+*Application Login Page*
+![Screenshot 2024-06-11 at 7 17 39 PM](https://github.com/kiewi16/travel-tracker/assets/150177522/4fe66d37-c171-40fb-a0c4-cbbee5f8455b)
+*Application dashboard*
 
 # Challenges
 - DOM manipulation of pending trips section
@@ -45,8 +49,8 @@ JavaScript, Mocha, Chai, Webpack, HTML, and CSS
 
 # Wins
 - Allocated time at project kickoff to develop a solid understanding of the available data and create a plan to manipulate that data to extra the data points needed for project completion. 
-- Increased confindence that I have the ability to navigate through challenges that arise during a project 
--`GET` and `POST` requests to a back-end API
+- Increased confindence that I have the ability to navigate through challenges that arise during a project
+- `GET` and `POST` requests to a back-end API
 - Thoughtful error handling that guides a user to complete all input fields needed to calculate trip cost and book a trip 
 
 # Future Features
